@@ -1,5 +1,5 @@
 <script>
-	import Content from '../components/Content.svelte';
+	import Content from '../lib/components/Content.svelte';
 	
 </script>
 

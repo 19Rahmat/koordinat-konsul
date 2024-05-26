@@ -1,5 +1,5 @@
 <script>
-	import Content from '../../../components/Content.svelte';
+	import Content from '../../../lib/components/Content.svelte';
 	import { appId, rahmat, hasbir } from './talkJsConfig';
 	import { onMount } from 'svelte';
 	import Talk from 'talkjs';
