@@ -2,7 +2,7 @@
 	import Layout from '../dashboard/Layout.svelte';
 	import Login from '../authentication/Login.svelte';
 	import { onMount } from 'svelte';
-	import {isLoggedIn} from '../lib/function/getData';
+	import {isLoggedIn} from '$lib/function/getData';
 	
 	let hasSession = false;
 

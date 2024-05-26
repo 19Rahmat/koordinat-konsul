@@ -11,7 +11,7 @@
             alert("token = "+token);
             // let hasSession = true;
             setSessionToken(token);
-            window.location.href ="/admin/arsip";
+            window.location.href ="/";
           }catch (error){
             console.log(error);
           }

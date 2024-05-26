@@ -1,5 +1,16 @@
 <script>
+	import {clearSessionToken} from '$lib/function/getData'
 	import { openSidebar } from './store';
+
+	let isProfilOpen = false;
+	function handleLogout(){
+		clearSessionToken();
+		window.location.href = "/"
+	}
+
+	function toggleDropdown(){
+		isProfilOpen = !isProfilOpen;
+	}
 </script>
 
 <header class="h-20 items-center relative z-10">
@@ -21,7 +32,7 @@
 			<div class="container flex left-0 relative w-3/4">
 				<div class="group hidden items-center ml-8 relative w-full md:flex lg:w-72">
 					<div
-						class="absolute block cursor-pointer flex items-center justify-center h-10 p-3 pr-2 text-gray-500 text-sm uppercase w-auto sm:hidden"
+						class="absolute cursor-pointer flex items-center justify-center h-10 p-3 pr-2 text-gray-500 text-sm uppercase w-auto sm:hidden"
 					>
 						<svg
 							fill="none"
@@ -69,13 +80,50 @@
 					</svg>
 				</span>
 				<span class="block relative">
-					<img
-						alt="Rahmat Gunawan"
-						src="/images/1.JPG"
-						class="h-10 mx-auto object-cover rounded-full w-10"
-					/>
+					<button on:click={toggleDropdown}>
+						<img
+							alt="Rahmat Gunawan"
+							src="/images/1.JPG"
+							class="h-10 mx-auto object-cover rounded-full w-10"
+						/>
+					</button>
+					<!-- dropdwon profile -->
+{#if isProfilOpen}
+<div
+
+  class="z-10 fixed bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 right-10"
+>
+  <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+	<div>Bonnie Green</div>
+	<div class="font-medium truncate">name@flowbite.com</div>
+  </div>
+  <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
+	
+	
+	<li>
+	  <a
+		href="#"
+		class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+	  >
+		Profile
+	  </a>
+	</li>
+  </ul>
+  <div class="py-1">
+	<button
+	  
+	  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+	on:click={handleLogout}>
+	  Sign out
+	</button>
+  </div>
+</div>
+{/if}
 				</span>
 			</div>
 		</div>
 	</div>
 </header>
+
+
+

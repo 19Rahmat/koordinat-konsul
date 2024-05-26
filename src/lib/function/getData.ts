@@ -43,4 +43,9 @@ function setSessionToken(token:any) {
   localStorage.setItem('authToken', token);
 }
 
-export {login, getSessionToken, isLoggedIn, setSessionToken}
+function clearSessionToken() {
+  localStorage.removeItem('authToken');
+  localStorage.clear();
+}
+
+export {login, getSessionToken, isLoggedIn, setSessionToken, clearSessionToken}
