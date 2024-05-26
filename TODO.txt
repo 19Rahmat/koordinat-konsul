@@ -1,0 +1,17 @@
+=========================---TO---=========================
+#TALKSJS
+    - make talkjs inbox and chatbox position fixed
+    - add loading effect before all talkjs container mount
+
+
+#DATABASE
+    - login and register with firebase and query the email that registered in firebase based on UNISMUH API
+    - read user in talkjs fetch from firebase
+    - if we can use talks session id from firebase do it, but if we can't just make session id from talk js store  in firebase
+    - read students data from UNISMUH api and query data with nim that login into application
+
+=========================---DONE---=========================
+#PDF REPORT
+    - how to read html file in svelte
+    - add varaible in html report template that input from form contain consultation topic, date and time
+    - store all report history in to array or object data
