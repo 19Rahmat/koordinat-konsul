@@ -55,11 +55,12 @@
 							d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
 						/>
 					</svg>
-					<input
+					<!-- <input
 						type="text"
 						class="bg-gray-800 block leading-normal pl-10 py-1.5 pr-4 ring-opacity-90 rounded-2xl text-gray-400 w-full focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
 						placeholder="Search"
-					/>
+					/> -->
+					<slot name="search" />
 				</div>
 			</div>
 			<div class="flex items-center justify-end ml-5 p-1 relative w-full sm:mr-0 sm:right-auto">
@@ -91,31 +92,32 @@
 {#if isProfilOpen}
 <div
 
-  class="z-10 fixed bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 right-10"
+  class="z-10 fixed rounded-lg shadow w-44 bg-gray-700 divide-gray-600 right-10"
 >
-  <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+  <div class="px-4 py-3 text-sm text-white">
 	<div>Bonnie Green</div>
 	<div class="font-medium truncate">name@flowbite.com</div>
   </div>
-  <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
+  <ul class="py-2 text-smtext-gray-200" aria-labelledby="avatarButton">
 	
 	
 	<li>
 	  <a
 		href="#"
-		class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+		class="block px-4 py-2 hover:bg-gray-600 hover:text-white"
 	  >
 		Profile
 	  </a>
 	</li>
   </ul>
   <div class="py-1">
-	<button
+	<a
+	href="/"
 	  
-	  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+	  class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white"
 	on:click={handleLogout}>
 	  Sign out
-	</button>
+  </a>
   </div>
 </div>
 {/if}

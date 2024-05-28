@@ -1,6 +1,6 @@
 <script>
 	import Content from '../../../lib/components/Content.svelte';
-	import consultationTable from './template_konsul/consultation';
+	import consultationTable from '../../../lib/data/consultation';
 
 	let selectedStudent = '';
 	let no = 1;
@@ -44,71 +44,22 @@
 	<title>Arsip</title>
 </svelte:head>
 
-<Content title="Arsip">
-	<svelte:fragment slot="body">
-		<select bind:value={selectedStudent}>
+<Content title="Arsip" aside_title="Form Konsultasi">
+	<svelte:fragment slot="head">
+		<select bind:value={selectedStudent} class="text-sm rounded-lg block w-full lg:w-1/3 p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
 			<option value="">Pilih Mahasiswa</option>
 			{#each Object.keys(consultationTable) as studentId}
 				<option value={studentId}>{studentId}</option>
 			{/each}
 		</select>
+	</svelte:fragment>
+	<svelte:fragment slot="body">
+	
 		<section class="flex gap-3 justify-center items-center">
-			<div class="container w-3/6">
-				<table id="form_konsul">
-					<thead>
-						<tr>
-							<th>No</th>
-							<th>Tanggal</th>
-							<th>Uraian Konsultasi</th>
-							<th>Keterangan</th>
-						</tr>
-					</thead>
-					<tbody>
-						{#if consultationTable[selectedStudent]}
-							{#each consultationTable[selectedStudent] as row, index}
-								<tr>
-									<td class="text-white">{index + 1}</td>
-									<td><input type="date" bind:value={row.date} /></td>
-									<td><input type="text" bind:value={row.description} /></td>
-									<td><input type="text" bind:value={row.ket} /></td>
-									<td>
-										<button on:click={() => removeRow(selectedStudent, index)}
-											><svg
-												fill="#ec2727"
-												height="22px"
-												width="22px"
-												version="1.1"
-												id="Capa_1"
-												xmlns="http://www.w3.org/2000/svg"
-												xmlns:xlink="http://www.w3.org/1999/xlink"
-												viewBox="0 0 459.739 459.739"
-												xml:space="preserve"
-												stroke="#ec2727"
-												><g id="SVGRepo_bgCarrier" stroke-width="0" /><g
-													id="SVGRepo_tracerCarrier"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-												/><g id="SVGRepo_iconCarrier">
-													<path
-														d="M229.869,0C102.917,0,0,102.917,0,229.869c0,126.952,102.917,229.869,229.869,229.869s229.869-102.917,229.869-229.869 C459.738,102.917,356.821,0,229.869,0z M313.676,260.518H146.063c-16.926,0-30.649-13.723-30.649-30.649 c0-16.927,13.723-30.65,30.649-30.65h167.613c16.925,0,30.649,13.723,30.649,30.65C344.325,246.795,330.601,260.518,313.676,260.518 z"
-													/>
-												</g></svg
-											></button
-										></td
-									>
-								</tr>
-							{/each}
-						{/if}
-					</tbody>
-				</table>
-				<div class="flex justify-between">
-					<button on:click={addRow}>Tambah Inputan Konsultasi</button>
-					<button on:click={generateReport}>Tampilkan Tabel Laporan</button>
-				</div>
-			</div>
+			
 
 			{#if reportTableVisible}
-				<div class="container w-3/6">
+				<div class="w-full">
 					<div class="bg-white w-full h-full rounded-3xl overflow-hidden border-2 border-gray-600">
 						<header class="flex items-center justify-center px-3">
 							<img src="/images/kop_surat.png" alt="logo unismuh" class="w-full h-full" />
@@ -151,7 +102,6 @@
 										{#each rows as row, index}
 											<tr>
 												<td>{index + 1}</td>
-												<!-- <td>{studentId}</td> -->
 												<td>{row.date}</td>
 												<td>{row.description}</td>
 												<td>{row.ket}</td>
@@ -165,46 +115,78 @@
 				</div>
 			{:else}
 				<div
-					class="border-2 border-gray-600 flex items-center justify-center rounded-3xl w-3/6 h-64"
+					class="border-2 border-gray-600 flex items-center justify-center rounded-3xl w-full h-64"
 				>
 					<p class="text-white text-lg font-semibold">Preview Laporan Konsultasi</p>
 				</div>
 			{/if}
 		</section>
 	</svelte:fragment>
+	<svelte:fragment slot="aside_body">
+		<div class="w-full p-1">
+					<div class="bg-white rounded-lg p-4 gap-1 flex flex-col">
+
+						{#if consultationTable[selectedStudent]}
+							{#each consultationTable[selectedStudent] as row, index}
+							
+									<span>Konsultasi ke {index + 1}</span> 
+									<div class="flex rounded-lg shadow-sm">
+										<span class="px-4 inline-flex items-center min-w-fit rounded-s-md border border-e-0 border-gray-200 bg-gray-300 text-2xl text-gray-700 "><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
+											<rect width="416" height="384" x="48" y="80" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" rx="48" />
+											<circle cx="296" cy="232" r="24" fill="currentColor" />
+											<circle cx="376" cy="232" r="24" fill="currentColor" />
+											<circle cx="296" cy="312" r="24" fill="currentColor" />
+											<circle cx="376" cy="312" r="24" fill="currentColor" />
+											<circle cx="136" cy="312" r="24" fill="currentColor" />
+											<circle cx="216" cy="312" r="24" fill="currentColor" />
+											<circle cx="136" cy="392" r="24" fill="currentColor" />
+											<circle cx="216" cy="392" r="24" fill="currentColor" />
+											<circle cx="296" cy="392" r="24" fill="currentColor" />
+											<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32" />
+											<path fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" d="M464 160H48" />
+										</svg></span>
+									<input type="date" bind:value={row.date} class="py-2 px-3 pe-11 block w-full border border-gray-300 shadow-sm rounded-e-lg text-sm " />
+									</div>
+									
+									<div class="flex rounded-lg shadow-sm">
+										<span class="px-4 inline-flex items-center min-w-fit rounded-s-md border border-e-0 border-gray-200 bg-gray-300 text-2xl text-gray-700 "><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+											<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+												<path d="M10.29 21.961h-.9c-3.248 0-4.873 0-5.882-1.025S2.5 18.261 2.5 14.961v-5c0-3.3 0-4.95 1.01-5.974C4.517 2.96 6.142 2.96 9.39 2.96h2.953c3.249 0 5.147.056 6.156 1.08c1.01 1.026 1 2.62 1 5.92v1.187M15.945 2v2m-5-2v2m-5-2v2M7 15h4m-4-5h8" />
+												<path d="M20.76 14.879c-.906-1.015-1.449-.954-2.052-.773c-.423.06-1.871 1.75-2.475 2.29c-.991.978-1.987 1.986-2.052 2.118c-.188.305-.362.845-.447 1.449c-.157.906-.383 1.925-.097 2.013s1.087-.08 1.992-.213c.604-.11 1.026-.23 1.328-.411c.423-.254 1.207-1.147 2.56-2.476c.847-.893 1.665-1.51 1.907-2.113c.241-.906-.12-1.39-.664-1.885" opacity="0.93" />
+											</g>
+										</svg></span>
+									<input type="text" bind:value={row.description} placeholder="Uraian konsultasi" class="py-2 px-3 pe-11 block w-full border border-gray-300 shadow-sm rounded-e-lg text-sm " />
+									</div>
+
+									<div class="flex rounded-lg shadow-sm">
+										<span class="px-4 inline-flex items-center min-w-fit rounded-s-md border border-e-0 border-gray-200 bg-gray-300 text-2xl text-gray-600 "><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+											<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5h8m-8 4h5m-5 6h8m-8 4h5M3 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm0 10a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
+										</svg></span>
+									<input type="text" bind:value={row.ket} placeholder="Keterangan" class="py-2 px-3 pe-11 block w-full border border-gray-200 shadow-sm rounded-e-lg text-sm " />
+									</div>
+									
+										<button on:click={() => removeRow(selectedStudent, index)}
+											class="text-white focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 bg-red-600 hover:bg-red-700 ">Hapus</button>
+					
+							{/each}
+						{:else}
+						<div
+						class="border-2 border-gray-400 flex items-center justify-center rounded-lg w-full h-64"
+					>
+						<p class=" text-lg font-semibold">Pilih Mahasiswa <br> Terlebih Dahulu</p>
+					</div>
+						{/if}
+					</div>
+		
+			<div class="flex mt-2">
+				<button on:click={addRow} class="px-4 inline-flex items-center min-w-fit rounded-s-md border-e-0 bg-indigo-700 text-xl text-white font-semibold">+</button>
+				<button on:click={generateReport} class="py-2 px-3 pe-11 block w-full shadow-sm rounded-e-lg text-sm font-medium bg-green-200 ">Tampilkan Tabel Laporan</button>
+			</div>
+		</div>
+	</svelte:fragment>
 </Content>
 
 <style>
-	#form_konsul td {
-		padding: 10px;
-		border-bottom: 1px solid #ddd;
-		border-top: 1px solid #ddd;
-	}
-
-	#form_konsul th {
-		color: white;
-		text-align: center;
-	}
-
-	#form_konsul input {
-		width: 100%;
-		padding: 5px;
-	}
-
-	button {
-		display: block;
-		margin: 0 auto;
-		padding: 10px 20px;
-		background-color: #4caf50;
-		color: white;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-	}
-
-	td {
-		padding-left: 5px;
-	}
 	#laporan {
 		width: 100%;
 		text-align: center;

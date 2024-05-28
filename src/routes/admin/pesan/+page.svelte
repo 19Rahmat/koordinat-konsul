@@ -37,7 +37,7 @@
 	<title>Pesan</title>
 </svelte:head>
 
-<Content title="Pesan">
+<Content title="Pesan" aside_title="Inbox">
 	<svelte:fragment slot="body">
 		<div bind:this={element} class="talkjs-container" />
 	</svelte:fragment>

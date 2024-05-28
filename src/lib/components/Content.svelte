@@ -1,26 +1,27 @@
 <script>
 	export let title;
+	export let aside_title;
 </script>
 
 <div class="flex flex-wrap">
 	<!-- lg:w-8/12 -->
-	<div class="w-full bg-gray-800 py-6 px-6 rounded-3xl">
+	<main class="w-full lg:w-8/12 bg-gray-800 py-6 px-6 rounded-3xl">
 		<div class="flex justify-between text-white items-center mb-8">
 			<p class="text-2xl font-bold">{title}</p>
 			<p class="">December, 12</p>
 		</div>
-		<div class="flex flex-wrap justify-between items-center pb-5">
+		<div class="flex w-full lg:max-w-xl justify-between gap-2 items-center pb-5">
 			<slot name="head" />
 		</div>
 		<slot name="body" />
-	</div>
-	<!-- <div class="w-full mt-8 lg:mt-0 lg:w-4/12 lg:pl-4">
+	</main>
+	<aside class="w-full mt-8 lg:mt-0 lg:w-4/12 lg:pl-4">
 		<div class="bg-gray-800 rounded-3xl px-6 pt-6">
 			<div class="flex text-white text-2xl pb-6 font-bold">
-				<p>Obrolan</p>
+				<p>{aside_title}</p>
 			</div>
-			<div>
-				<div
+			<div class="pb-6">
+				<!-- <div
 					class="border-t solid border-gray-700 p-4 flex 2xl:items-start w-full hover:bg-gray-700"
 				>
 					<img
@@ -163,8 +164,9 @@
 						</p>
 						<p class="text-right text-gray-400 text-sm">Dec, 12</p>
 					</div>
-				</div>
+				</div> -->
+			<slot name="aside_body"/>
 			</div>
 		</div>
-	</div> -->
+	</aside>
 </div>
