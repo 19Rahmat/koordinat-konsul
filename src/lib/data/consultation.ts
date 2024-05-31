@@ -17,4 +17,7 @@ const consultationTable: Consultation = {
 	]
 };
 
+interface lectureData {}
+
+const lectureData = {};
 export default consultationTable;

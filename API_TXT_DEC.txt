@@ -1,0 +1,61 @@
+mendeteksi siapa yang login:
+- tangkap value dari input stambuk
+- buatkan fungsi untuk mendeteksi panjang nim/nidn
+- data-data yang perlu diambil untuk profile:
+  + Mahasiswa:
+    --- IDENTITAS ---
+    - Nama
+    - Nim
+    - Tanggal lahir
+    - No. hp
+    - Email
+    - Jenis kelamin
+    - Tempat Lahir 
+
+    --- INFO AKADEMIK ---
+    - Status mahasiswa
+    - IPK
+    - Sks total
+    - Tahun Masuk
+  
+  + Dosen:
+    - Nidn
+    - Nama
+    - Gelar
+    - Tempat Lahir
+    - Tanggal Lahir
+    - Email
+    - No. Hp
+    
+
+
+- data-data yang perlu di ambil untuk Tabel
+  DOSEN >>
+        + pa
+          - konsulID (dont show in frontend)
+          - nama
+          - konsul terakhir (time_stamp)
+          - total konsul
+
+        + konsul
+          - konsulID (dont show in frontend)
+          - nama
+          - total konsul
+
+        + selesai
+          - konsulID (dont show in frontend)
+          - nama
+
+  MAHASISWA >>
+        + konsul
+          - konsul terakhir (time_stamp)
+
+  - flow data yang diambil untuk page
+    loginUser>>>user data by Dosen/Mahasiswa>>> ✔️
+                  >(dashboard = loginUser>> all Dosen Tabel data>> pa, konsul, selesai / all mahasiswa Tabel data>>konsul)
+                  >(pesan = loginUser>>all dosen Conversation Data / all mahasiswa Conversation Data)
+                  >(arsip = loginUser>>dosen report/mahasiswa inbox)
+
+
+
+

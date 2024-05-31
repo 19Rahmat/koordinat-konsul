@@ -5,10 +5,10 @@
 
 <div class="flex flex-wrap">
 	<!-- lg:w-8/12 -->
-	<main class="w-full lg:w-8/12 bg-gray-800 py-6 px-6 rounded-3xl">
+	<main class="w-full lg:w-8/12 bg-gray-800 p-6 rounded-3xl">
 		<div class="flex justify-between text-white items-center mb-8">
 			<p class="text-2xl font-bold">{title}</p>
-			<p class="">December, 12</p>
+			<p class="">TA Genap 2023</p>
 		</div>
 		<div class="flex w-full lg:max-w-xl justify-between gap-2 items-center pb-5">
 			<slot name="head" />
@@ -25,7 +25,7 @@
 					class="border-t solid border-gray-700 p-4 flex 2xl:items-start w-full hover:bg-gray-700"
 				>
 					<img
-						src="https://simakad.unismuh.ac.id/upload/mahasiswa/105841109520_.jpg?1714763929"
+						src="https://simakad.unismuh.ac.id/upload/mahasiswa/841109520_.jpg?1714763929"
 						alt="profile"
 						class="object-cover w-10 h-10 rounded-full"
 					/>
@@ -165,7 +165,7 @@
 						<p class="text-right text-gray-400 text-sm">Dec, 12</p>
 					</div>
 				</div> -->
-			<slot name="aside_body"/>
+				<slot name="aside_body" />
 			</div>
 		</div>
 	</aside>

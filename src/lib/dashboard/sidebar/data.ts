@@ -11,11 +11,11 @@ export const data = [
 	{
 		title: 'Pesan',
 		icon: StatusIcon,
-		link: '/admin/pesan'
+		link: '/page/pesan'
 	},
 	{
 		title: 'Arsip',
 		icon: ArchivesIcon,
-		link: '/admin/arsip'
-	},
+		link: '/page/arsip'
+	}
 ];

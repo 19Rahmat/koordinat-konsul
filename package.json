@@ -49,6 +49,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"axios": "^1.7.2",
 		"chart.js": "^4.4.3",
 		"datatables.net-dt": "^2.0.7",
 		"firebase": "^10.12.1",

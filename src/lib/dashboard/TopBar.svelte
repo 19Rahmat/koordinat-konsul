@@ -1,14 +1,15 @@
 <script>
-	import {clearSessionToken} from '$lib/function/getData'
+	import { clearSessionToken } from '$lib/function/getData';
 	import { openSidebar } from './store';
+	import { getPhoto } from '../function/getData';
 
 	let isProfilOpen = false;
-	function handleLogout(){
+	function handleLogout() {
 		clearSessionToken();
-		window.location.href = "/"
+		window.location.href = '/';
 	}
 
-	function toggleDropdown(){
+	function toggleDropdown() {
 		isProfilOpen = !isProfilOpen;
 	}
 </script>
@@ -84,48 +85,40 @@
 					<button on:click={toggleDropdown}>
 						<img
 							alt="Rahmat Gunawan"
-							src="/images/1.JPG"
-							class="h-10 mx-auto object-cover rounded-full w-10"
+							src={getPhoto()}
+							class="h-10 mx-auto object-scale-down rounded-full w-10"
 						/>
 					</button>
 					<!-- dropdwon profile -->
-{#if isProfilOpen}
-<div
-
-  class="z-10 fixed rounded-lg shadow w-44 bg-gray-700 divide-gray-600 right-10"
->
-  <div class="px-4 py-3 text-sm text-white">
-	<div>Bonnie Green</div>
-	<div class="font-medium truncate">name@flowbite.com</div>
-  </div>
-  <ul class="py-2 text-smtext-gray-200" aria-labelledby="avatarButton">
-	
-	
-	<li>
-	  <a
-		href="#"
-		class="block px-4 py-2 hover:bg-gray-600 hover:text-white"
-	  >
-		Profile
-	  </a>
-	</li>
-  </ul>
-  <div class="py-1">
-	<a
-	href="/"
-	  
-	  class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white"
-	on:click={handleLogout}>
-	  Sign out
-  </a>
-  </div>
-</div>
-{/if}
+					{#if isProfilOpen}
+						<div class="z-10 fixed rounded-lg shadow w-44 bg-gray-700 divide-gray-600 right-10">
+							<div class="px-4 py-3 text-sm text-white">
+								<div>Bonnie Green</div>
+								<div class="font-medium truncate">name@flowbite.com</div>
+							</div>
+							<ul class="py-2 text-smtext-gray-200" aria-labelledby="avatarButton">
+								<li>
+									<a
+										href="/page/profile"
+										class="block px-4 py-2 hover:bg-gray-600 hover:text-white"
+									>
+										Profile
+									</a>
+								</li>
+							</ul>
+							<div class="py-1">
+								<a
+									href="/"
+									class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white"
+									on:click={handleLogout}
+								>
+									Sign out
+								</a>
+							</div>
+						</div>
+					{/if}
 				</span>
 			</div>
 		</div>
 	</div>
 </header>
-
-
-
