@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import { whosLogin, getPhoto, getSessionToken } from '$lib/function/getData';
 	import { fetchStudentsData } from '$lib/data/Students';
+	import { fetchLectureData } from '$lib/data/Lecture';
 	let nama = 'Potret';
 
 	function getRole() {
@@ -10,6 +11,8 @@
 		let role = whosLogin(nim);
 		return role;
 	}
+
+	console.log(getRole());
 
 	interface Mahasiswa {
 		nim: string;
@@ -29,13 +32,24 @@
 		};
 	}
 
+	interface Dosen {
+		nidn: string;
+		nama: string;
+		gelarBelakang: string;
+		tempatLahir: string;
+		tanggalLahir: string;
+		hp: string;
+		email: string;
+	}
+	let dosen: Dosen | null = null;
 	let mahasiswa: Mahasiswa | null = null;
 
 	onMount(async () => {
 		try {
-			const data = await fetchStudentsData();
-			console.log(data);
-			mahasiswa = data.data.mahasiswa;
+			const dataMahasiswa = await fetchStudentsData();
+			const dataDosen = await fetchLectureData();
+			mahasiswa = dataMahasiswa.data.mahasiswa;
+			dosen = dataDosen.data.dosen;
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -50,88 +64,126 @@
 <Content title={`Profile ${getRole()}`} aside_title={nama}>
 	<svelte:fragment slot="body">
 		<section class="w-full bg-white rounded-3xl p-2">
-			{#if mahasiswa}
-				<div class="w-full lg:w-1/3 font-bold bg-green-300 rounded-3xl p-3 pl-5 flex gap-1">
-					<span class="line" />
-					<span>IDENTITAS</span>
-				</div>
-				<div class="profile-card">
-					<div class="profile-header">
-						<h2>{mahasiswa.nama}</h2>
-						<p>NIM: {mahasiswa.nim}</p>
+			<div class="w-full lg:w-1/3 font-bold bg-green-300 rounded-3xl p-3 pl-5 flex gap-1">
+				<span class="line" />
+				<span>IDENTITAS</span>
+			</div>
+			{#if getRole() === 'mahasiswa'}
+				{#if mahasiswa}
+					<div class="profile-card">
+						<div class="profile-header">
+							<h2>{mahasiswa.nama}</h2>
+							<p>NIM: {mahasiswa.nim}</p>
+						</div>
+						<div class="profile-details">
+							<table>
+								<tr>
+									<td>Angkatan</td>
+									<td>:</td>
+									<td>{mahasiswa.angkatan}</td>
+								</tr>
+								<tr>
+									<td>Jenis Kelamin</td>
+									<td>:</td>
+									<td>{mahasiswa.jenisKelamin}</td>
+								</tr>
+								<tr>
+									<td>Tempat Lahir</td>
+									<td>:</td>
+									<td>{mahasiswa.tempatLahir}</td>
+								</tr>
+								<tr>
+									<td>Tanggal Lahir</td>
+									<td>:</td>
+									<td>{formatDate(mahasiswa.tanggalLahir)}</td>
+								</tr>
+								<tr>
+									<td>Dosen PA</td>
+									<td>:</td>
+									<td>{mahasiswa.dosenPA}</td>
+								</tr>
+								<tr>
+									<td>Email</td>
+									<td>:</td>
+									<td>{mahasiswa.email}</td>
+								</tr>
+								<tr>
+									<td>No. HP</td>
+									<td>:</td>
+									<td>{mahasiswa.hp}</td>
+								</tr>
+							</table>
+							<div class="profile-line" />
+						</div>
 					</div>
-					<div class="profile-details">
+					<div class="w-full lg:w-1/3 font-bold bg-green-300 rounded-3xl p-3 pl-5 flex gap-1">
+						<span class="line" />
+						<span>INFORMASI AKADEMIK</span>
+					</div>
+					<div class="profile-card">
 						<table>
 							<tr>
-								<td>Angkatan</td>
+								<td>SKS Total</td>
 								<td>:</td>
-								<td>{mahasiswa.angkatan}</td>
+								<td>{mahasiswa.khs.sksTotal}</td>
 							</tr>
 							<tr>
-								<td>Jenis Kelamin</td>
+								<td>Status Mahasiswa</td>
 								<td>:</td>
-								<td>{mahasiswa.jenisKelamin}</td>
+								<td>{mahasiswa.khs.statusMahasiswa}</td>
 							</tr>
 							<tr>
-								<td>Tempat Lahir</td>
+								<td>IPK</td>
 								<td>:</td>
-								<td>{mahasiswa.tempatLahir}</td>
+								<td>{mahasiswa.khs.ipk}</td>
 							</tr>
 							<tr>
-								<td>Tanggal Lahir</td>
+								<td>Tahun Akademik</td>
 								<td>:</td>
-								<td>{formatDate(mahasiswa.tanggalLahir)}</td>
-							</tr>
-							<tr>
-								<td>Dosen PA</td>
-								<td>:</td>
-								<td>{mahasiswa.dosenPA}</td>
-							</tr>
-							<tr>
-								<td>Email</td>
-								<td>:</td>
-								<td>{mahasiswa.email}</td>
-							</tr>
-							<tr>
-								<td>No. HP</td>
-								<td>:</td>
-								<td>{mahasiswa.hp}</td>
+								<td>{mahasiswa.khs.tahunAkademik}</td>
 							</tr>
 						</table>
-						<div class="profile-line" />
 					</div>
-				</div>
-				<div class="w-full lg:w-1/3 font-bold bg-green-300 rounded-3xl p-3 pl-5 flex gap-1">
-					<span class="line" />
-					<span>INFORMASI AKADEMIK</span>
-				</div>
-				<div class="profile-card">
-					<table>
-						<tr>
-							<td>SKS Total</td>
-							<td>:</td>
-							<td>{mahasiswa.khs.sksTotal}</td>
-						</tr>
-						<tr>
-							<td>Status Mahasiswa</td>
-							<td>:</td>
-							<td>{mahasiswa.khs.statusMahasiswa}</td>
-						</tr>
-						<tr>
-							<td>IPK</td>
-							<td>:</td>
-							<td>{mahasiswa.khs.ipk}</td>
-						</tr>
-						<tr>
-							<td>Tahun Akademik</td>
-							<td>:</td>
-							<td>{mahasiswa.khs.tahunAkademik}</td>
-						</tr>
-					</table>
-				</div>
 
-				<!-- {:else}
+					<!-- {:else}
 	<p>Loading...</p> -->
+				{/if}
+			{:else if getRole() === 'dosen'}
+				{#if dosen}
+					<div class="profile-card">
+						<div class="profile-header">
+							<h2>{dosen.nama}</h2>
+							<p>NIDN: {dosen.nidn}</p>
+						</div>
+						<div class="profile-details">
+							<table>
+								<tr>
+									<td>Email</td>
+									<td>:</td>
+									<td>{dosen.email}</td>
+								</tr>
+								<tr>
+									<td>No. HP</td>
+									<td>:</td>
+									<td>{dosen.hp}</td>
+								</tr>
+								<tr>
+									<td>Tempat Lahir</td>
+									<td>:</td>
+									<td>{dosen.tempatLahir}</td>
+								</tr>
+								<tr>
+									<td>Tanggal Lahir</td>
+									<td>:</td>
+									<td>{formatDate(dosen.tanggalLahir)}</td>
+								</tr>
+							</table>
+							<div class="profile-line" />
+						</div>
+					</div>
+				{/if}
+			{:else}
+				<p>Loading...</p>
 			{/if}
 		</section>
 	</svelte:fragment>

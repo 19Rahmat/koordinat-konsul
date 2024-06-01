@@ -2,30 +2,30 @@ mendeteksi siapa yang login:
 - tangkap value dari input stambuk
 - buatkan fungsi untuk mendeteksi panjang nim/nidn
 - data-data yang perlu diambil untuk profile:
-  + Mahasiswa:
-    --- IDENTITAS ---
-    - Nama
-    - Nim
-    - Tanggal lahir
-    - No. hp
-    - Email
-    - Jenis kelamin
-    - Tempat Lahir 
+  + Mahasiswa:✔️
+    --- IDENTITAS --- ✔️
+    - Nama ✔️
+    - Nim ✔️
+    - Tanggal lahir ✔️
+    - No. hp ✔️
+    - Email ✔️
+    - Jenis kelamin ✔️
+    - Tempat Lahir ✔️
 
-    --- INFO AKADEMIK ---
-    - Status mahasiswa
-    - IPK
-    - Sks total
-    - Tahun Masuk
+    --- INFO AKADEMIK --- ✔️
+    - Status mahasiswa ✔️
+    - IPK ✔️
+    - Sks total ✔️
+    - Tahun Masuk ✔️
   
   + Dosen:
-    - Nidn
-    - Nama
-    - Gelar
-    - Tempat Lahir
-    - Tanggal Lahir
-    - Email
-    - No. Hp
+    - Nidn ✔️
+    - Nama ✔️
+    - Gelar ✔️
+    - Tempat Lahir ✔️
+    - Tanggal Lahir ✔️
+    - Email ✔️
+    - No. Hp ✔️
     
 
 
