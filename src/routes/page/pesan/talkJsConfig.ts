@@ -1,76 +1,76 @@
-import Talk from 'talkjs';
-import { onMount } from 'svelte';
-import { fetchLectureData2 } from "$lib/data/Lecture";
+// import Talk from 'talkjs';
+// import { onMount } from 'svelte';
+// import { fetchLectureData2 } from "$lib/data/Lecture";
 
 
 let appId = 'tgziXhR8';
 
 
-let stambuk: any;
-function getID(){
-	stambuk = localStorage.getItem('userLogin');
-	return stambuk;
+// let stambuk: any;
+// function getID(){
+// 	stambuk = localStorage.getItem('userLogin');
+// 	return stambuk;
 
-}
-let me ={
-	id: getID(),
-	name: 'nama dosen',
-	photo: `https://simakad.unismuh.ac.id/upload/dosen/${getID()}_.jpg?1714763929`
+// }
+// let me ={
+// 	id: getID(),
+// 	name: 'nama dosen',
+// 	photo: `https://simakad.unismuh.ac.id/upload/dosen/${getID()}_.jpg?1714763929`
 
-  }
-let dosen: any[] = [];
-let contactList: any[] = [];
-let talkSession: Talk.Session | null = null;
-let chatbox: Talk.Chatbox | null = null;
-async function loadContacts() {
-	try {
-		const data = await fetchLectureData2();
-		dosen = data.dosen;
-		console.log(dosen);
-		contactList = data.daftarmahasiswa.map((mahasiswa) => ({
-			id: mahasiswa.nim, // Use nim as unique identifier
-			name: mahasiswa.nama,
-			photo: `https://simakad.unismuh.ac.id/upload/mahasiswa/${mahasiswa.nim}_.jpg?1714763929`
-			// angk: mahasiswa.angkatan
-		}));
-		console.log(contactList);
-	} catch (error) {
-		console.error('Error fetching data:', error);
-	}
-}
+//   }
+// let dosen: any[] = [];
+// let contactList: any[] = [];
+// let talkSession: Talk.Session | null = null;
+// let chatbox: Talk.Chatbox | null = null;
+// async function loadContacts() {
+// 	try {
+// 		const data = await fetchLectureData2();
+// 		dosen = data.dosen;
+// 		console.log(dosen);
+// 		contactList = data.daftarmahasiswa.map((mahasiswa) => ({
+// 			id: mahasiswa.nim, // Use nim as unique identifier
+// 			name: mahasiswa.nama,
+// 			photo: `https://simakad.unismuh.ac.id/upload/mahasiswa/${mahasiswa.nim}_.jpg?1714763929`
+// 			// angk: mahasiswa.angkatan
+// 		}));
+// 		console.log(contactList);
+// 	} catch (error) {
+// 		console.error('Error fetching data:', error);
+// 	}
+// }
 
-onMount(async ()=>{
-	await loadContacts();
+// onMount(async ()=>{
+// 	await loadContacts();
 
-	talkSession = new Talk.Session({
-		appId: appId,
-		me: me,
-	});
+// 	talkSession = new Talk.Session({
+// 		appId: appId,
+// 		me: me,
+// 	});
 
 
-	  // Create and mount the chatbox
-	  chatbox = talkSession.createChatbox();
-	  chatbox.select(null);
-	  chatbox.mount(document.getElementById('talkjs-container'));
+// 	  // Create and mount the chatbox
+// 	  chatbox = talkSession.createChatbox();
+// 	  chatbox.select(null);
+// 	  chatbox.mount(document.getElementById('talkjs-container'));
 	
-	  // Create conversationBuilder objects for each user
-	  const conversations = contactList.map((user) => {
-		const talkUser = new Talk.User(user);
-		const conversation = talkSession?.getOrCreateConversation(Talk.oneOnOneId(me, talkUser));
+// 	  // Create conversationBuilder objects for each user
+// 	  const conversations = contactList.map((user) => {
+// 		const talkUser = new Talk.User(user);
+// 		const conversation = talkSession?.getOrCreateConversation(Talk.oneOnOneId(me, talkUser));
 	
-		conversation?.setParticipant(me);
-		conversation?.setParticipant(talkUser);
+// 		conversation?.setParticipant(me);
+// 		conversation?.setParticipant(talkUser);
 	
-		return conversation;
+// 		return conversation;
 
-		});
-});
-
-
+// 		});
+// });
 
 
 
 
 
 
-export { appId, loadContacts };
+
+
+export { appId };

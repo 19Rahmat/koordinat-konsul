@@ -41,9 +41,8 @@
 
 
 	onMount(async ()=>{
-		await loadContacts()
-	}
-	);
+		await loadContacts();
+	});
 </script>
 
 <svelte:head>
