@@ -3,6 +3,7 @@
 // import { fetchLectureData2 } from "$lib/data/Lecture";
 
 
+
 let appId = 'tgziXhR8';
 
 
@@ -12,12 +13,21 @@ let appId = 'tgziXhR8';
 // 	return stambuk;
 
 // }
-// let me ={
-// 	id: getID(),
-// 	name: 'nama dosen',
-// 	photo: `https://simakad.unismuh.ac.id/upload/dosen/${getID()}_.jpg?1714763929`
 
-//   }
+// let idDosen = getID();
+interface dosenMe{
+	id: string,
+	name: string,
+	photo: string,
+	role: string
+}
+export let dosenMe = {
+	id: '0903058406',
+	name: 'nama dosen',
+	photo: `https://simakad.unismuh.ac.id/upload/dosen/0903058406_.jpg?1714763929`,
+	role: 'default'
+
+  }
 // let dosen: any[] = [];
 // let contactList: any[] = [];
 // let talkSession: Talk.Session | null = null;

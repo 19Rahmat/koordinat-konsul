@@ -4,7 +4,6 @@
 	import { getPhoto, getRole, getSessionToken } from '$lib/function/getData';
 	import { fetchStudentsData } from '$lib/data/Students';
 	import { fetchLectureData } from '$lib/data/Lecture';
-	let nama = 'Potret';
 
 	console.log(getRole());
 	console.log(getSessionToken());
@@ -65,7 +64,7 @@
 	}
 </script>
 
-<Content title={`Profile ${getRole()}`} aside_title={nama}>
+<Content title={`Profile ${getRole()}`} aside_title="Potret">
 	<svelte:fragment slot="body">
 		<section class="w-full bg-white rounded-3xl p-2">
 			<div class="w-full lg:w-1/3 font-bold bg-green-300 rounded-3xl p-3 pl-5 flex gap-1">

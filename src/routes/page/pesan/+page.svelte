@@ -1,12 +1,14 @@
 <script lang="ts">
-	// import Talk from 'talkjs';
+	import Talk from 'talkjs';
 	import { onMount } from 'svelte';
 	import Content from '$lib/components/Content.svelte';
-	import { appId } from './talkJsConfig';
+	import { appId, dosenMe } from './talkJsConfig';
 	import { fetchLectureData2 } from '$lib/data/Lecture';
 	import { whosLogin } from '$lib/function/getData';
-
+	// import { User } from 'talkjs/all';
+	let selectedConversation: string | null = null;
 	let element: HTMLElement | null;
+	let handleSelectConversation: HTMLElement | null;
 
 	let inboxContainer: HTMLElement | null;
 
@@ -14,14 +16,16 @@
 
 	// let dosen: any;
 	let daftarmahasiswa: any;
-	// let contactList: {
-	// 	id: string;
-	// 	name: string;
-	// }[];
-	let contacts: any[] = [];
-  let dosen: any[] = [];
-  let contactList: any[] = [];
 
+	let contacts: any[] = [];
+	let dosen: any[] = [];
+	let contactList: any[] = [];
+	//   let conversations: any[] = [];
+	interface User {
+		id: string;
+		name: string;
+		// Add any other properties of the user object
+	}
 
 	async function loadContacts() {
 		try {
@@ -31,7 +35,7 @@
 			contactList = data.daftarmahasiswa.map((mahasiswa) => ({
 				id: mahasiswa.nim, // Use nim as unique identifier
 				name: mahasiswa.nama,
-				angk: mahasiswa.angkatan
+				role: mahasiswa.angkatan.toString()
 			}));
 			console.log(contactList);
 		} catch (error) {
@@ -39,9 +43,38 @@
 		}
 	}
 
+	async function createConversation() {
+		await Talk.ready;
 
-	onMount(async ()=>{
+		const me = new Talk.User(dosenMe);
+		const session = new Talk.Session({ appId, me });
+		const chatbox = session.createChatbox();
+		// chatbox.select = null;
+		const conversations: any[] = await Promise.all(
+			contactList.map(async (user: User, index: number) => {
+				const TalkUser = new Talk.User(user);
+				const conversation = await session.getOrCreateConversation(Talk.oneOnOneId(me, TalkUser));
+				conversation.setParticipant(me);
+				conversation.setParticipant(TalkUser);
+				return conversation;
+			})
+		);
+
+		function handleSelectConversation() {
+			if (selectedConversation) {
+				const selectedConv = conversations.find((c) => c.id === selectedConversation);
+				if (selectedConv) {
+					chatbox.select(selectedConv);
+					chatbox.mount(element);
+				}
+			}
+		}
+		handleSelectConversation();
+	}
+
+	onMount(async () => {
 		await loadContacts();
+		await createConversation();
 	});
 </script>
 
@@ -51,17 +84,17 @@
 
 <Content title="Pesan" aside_title="Inbox">
 	<svelte:fragment slot="head">
-	
 		<!-- bind:value={selectedContact} -->
-			<select
-				class="text-sm rounded-lg block w-full lg:w-1/3 p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-			>
-				<option value="">Pilih Mahasiswa</option>
-				{#each contactList as contact}
-					<option value={contact.id}>{contact.name}, {contact.angk}</option>
-				{/each}
-			</select>
-
+		<select
+			bind:value={selectedConversation}
+			on:click={handleSelectConversation}
+			class="text-sm rounded-lg block w-full lg:w-1/3 p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+		>
+			<option value="">Pilih Mahasiswa</option>
+			{#each contactList as contact}
+				<option value={contact.id}>{contact.name}, {contact.role}</option>
+			{/each}
+		</select>
 	</svelte:fragment>
 	<svelte:fragment slot="body">
 		<section class="w-full min-h-screen h-full">
