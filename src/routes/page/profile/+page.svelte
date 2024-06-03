@@ -1,18 +1,13 @@
 <script lang="ts">
 	import Content from '$lib/components/Content.svelte';
 	import { onMount } from 'svelte';
-	import { whosLogin, getPhoto, getSessionToken } from '$lib/function/getData';
+	import { getPhoto, getRole, getSessionToken } from '$lib/function/getData';
 	import { fetchStudentsData } from '$lib/data/Students';
 	import { fetchLectureData } from '$lib/data/Lecture';
 	let nama = 'Potret';
 
-	function getRole() {
-		let nim = localStorage.getItem('userLogin');
-		let role = whosLogin(nim);
-		return role;
-	}
-
 	console.log(getRole());
+	console.log(getSessionToken());
 
 	interface Mahasiswa {
 		nim: string;
@@ -24,25 +19,28 @@
 		hp: string;
 		email: string;
 		dosenPA: string;
-		khs: {
-			sksTotal: number;
-			statusMahasiswa: string;
-			ipk: number;
-			tahunAkademik: string;
-		};
+		khs: Akademik[];
+	}
+
+	interface Akademik {
+		ips: string;
+		ipk: string;
+		statusMahasiswa: string;
+		tahunAkademik: string;
 	}
 
 	interface Dosen {
 		nidn: string;
 		nama: string;
-		gelarBelakang: string;
-		tempatLahir: string;
-		tanggalLahir: string;
+		gelar_belakang: string;
+		tempat_lahir: string;
+		tanggal_lahir: string;
 		hp: string;
 		email: string;
 	}
 	let dosen: Dosen | null = null;
 	let mahasiswa: Mahasiswa | null = null;
+	let nilaiAkademik: Akademik;
 
 	onMount(async () => {
 		try {
@@ -50,6 +48,12 @@
 			const dataDosen = await fetchLectureData();
 			mahasiswa = dataMahasiswa.data.mahasiswa;
 			dosen = dataDosen.data.dosen;
+
+			if (mahasiswa?.khs) {
+				nilaiAkademik = mahasiswa.khs[mahasiswa.khs.length - 1];
+			}
+
+			console.log(mahasiswa);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -123,36 +127,33 @@
 					<div class="profile-card">
 						<table>
 							<tr>
-								<td>SKS Total</td>
+								<td>IPS</td>
 								<td>:</td>
-								<td>{mahasiswa.khs.sksTotal}</td>
+								<td>{nilaiAkademik.ips}</td>
 							</tr>
 							<tr>
 								<td>Status Mahasiswa</td>
 								<td>:</td>
-								<td>{mahasiswa.khs.statusMahasiswa}</td>
+								<td>{nilaiAkademik.statusMahasiswa}</td>
 							</tr>
 							<tr>
 								<td>IPK</td>
 								<td>:</td>
-								<td>{mahasiswa.khs.ipk}</td>
+								<td>{nilaiAkademik.ipk}</td>
 							</tr>
 							<tr>
 								<td>Tahun Akademik</td>
 								<td>:</td>
-								<td>{mahasiswa.khs.tahunAkademik}</td>
+								<td>{nilaiAkademik.tahunAkademik}</td>
 							</tr>
 						</table>
 					</div>
-
-					<!-- {:else}
-	<p>Loading...</p> -->
 				{/if}
 			{:else if getRole() === 'dosen'}
 				{#if dosen}
 					<div class="profile-card">
 						<div class="profile-header">
-							<h2>{dosen.nama}</h2>
+							<h2>{dosen.nama}, {dosen.gelar_belakang}</h2>
 							<p>NIDN: {dosen.nidn}</p>
 						</div>
 						<div class="profile-details">
@@ -170,12 +171,12 @@
 								<tr>
 									<td>Tempat Lahir</td>
 									<td>:</td>
-									<td>{dosen.tempatLahir}</td>
+									<td>{dosen.tempat_lahir}</td>
 								</tr>
 								<tr>
 									<td>Tanggal Lahir</td>
 									<td>:</td>
-									<td>{formatDate(dosen.tanggalLahir)}</td>
+									<td>{formatDate(dosen.tanggal_lahir)}</td>
 								</tr>
 							</table>
 							<div class="profile-line" />

@@ -70,6 +70,12 @@ function getPhoto() {
 	return url;
 }
 
+function getRole() {
+	let stambuk = localStorage.getItem('userLogin');
+	let role = whosLogin(stambuk);
+	return role;
+}
+
 export {
 	login,
 	getSessionToken,
@@ -77,5 +83,6 @@ export {
 	setSessionToken,
 	clearSessionToken,
 	whosLogin,
-	getPhoto
+	getPhoto,
+	getRole
 };

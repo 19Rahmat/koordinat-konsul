@@ -29,7 +29,7 @@ async function fetchStudentsData() {
               email
               dosenPA
               khs {
-                sksTotal
+                ips
                 statusMahasiswa
                 ipk
                 tahunAkademik
