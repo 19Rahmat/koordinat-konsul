@@ -11,7 +11,7 @@
 
 			setSessionToken(token);
 			localStorage.setItem('userLogin', username);
-			alert('Berhasi login sebagai: ' + whosLogin(username));
+			alert('Berhasi login sebagai :   ' + whosLogin(username));
 
 			window.location.href = '/page/profile';
 		} catch (error) {
