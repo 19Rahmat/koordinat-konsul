@@ -10,7 +10,7 @@
 			<p class="text-2xl font-bold">{title}</p>
 			<p class="">TA Genap 2023</p>
 		</div>
-		<div class="flex w-full lg:max-w-xl justify-between gap-2 items-center pb-5">
+		<div class="flex w-full relative lg:max-w-xl justify-between gap-2 items-center pb-5">
 			<slot name="head" />
 		</div>
 		<slot name="body" />

@@ -2,10 +2,7 @@
 // import { onMount } from 'svelte';
 // import { fetchLectureData2 } from "$lib/data/Lecture";
 
-
-
 let appId = 'tgziXhR8';
-
 
 // let stambuk: any;
 // function getID(){
@@ -15,19 +12,18 @@ let appId = 'tgziXhR8';
 // }
 
 // let idDosen = getID();
-interface dosenMe{
-	id: string,
-	name: string,
-	photo: string,
-	role: string
+interface dosenMe {
+	id: string;
+	name: string;
+	photo: string;
+	role: string;
 }
 export let dosenMe = {
 	id: '0903058406',
 	name: 'nama dosen',
 	photo: `https://simakad.unismuh.ac.id/upload/dosen/0903058406_.jpg?1714763929`,
 	role: 'default'
-
-  }
+};
 // let dosen: any[] = [];
 // let contactList: any[] = [];
 // let talkSession: Talk.Session | null = null;
@@ -57,30 +53,22 @@ export let dosenMe = {
 // 		me: me,
 // 	});
 
-
 // 	  // Create and mount the chatbox
 // 	  chatbox = talkSession.createChatbox();
 // 	  chatbox.select(null);
 // 	  chatbox.mount(document.getElementById('talkjs-container'));
-	
+
 // 	  // Create conversationBuilder objects for each user
 // 	  const conversations = contactList.map((user) => {
 // 		const talkUser = new Talk.User(user);
 // 		const conversation = talkSession?.getOrCreateConversation(Talk.oneOnOneId(me, talkUser));
-	
+
 // 		conversation?.setParticipant(me);
 // 		conversation?.setParticipant(talkUser);
-	
+
 // 		return conversation;
 
 // 		});
 // });
-
-
-
-
-
-
-
 
 export { appId };

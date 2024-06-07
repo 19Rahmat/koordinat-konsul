@@ -8,14 +8,11 @@
 	// import { User } from 'talkjs/all';
 	let selectedConversation: string | null = null;
 	let element: HTMLElement | null;
-	let handleSelectConversation: HTMLElement | null;
 
-	let inboxContainer: HTMLElement | null;
-
-	// let selectedContact: Talk.User;
-
-	// let dosen: any;
+	let showContactList = false;
 	let daftarmahasiswa: any;
+	let selectedContact: Talk.UserOptions;
+	let talkSession;
 
 	let contacts: any[] = [];
 	let dosen: any[] = [];
@@ -51,30 +48,38 @@
 		const chatbox = session.createChatbox();
 		// chatbox.select = null;
 		const conversations: any[] = await Promise.all(
-			contactList.map(async (user: User, index: number) => {
+			contactList.map(async (user: User) => {
 				const TalkUser = new Talk.User(user);
-				const conversation = await session.getOrCreateConversation(Talk.oneOnOneId(me, TalkUser));
+				const conversation = session.getOrCreateConversation(Talk.oneOnOneId(me, TalkUser));
 				conversation.setParticipant(me);
 				conversation.setParticipant(TalkUser);
 				return conversation;
 			})
 		);
 
-		function handleSelectConversation() {
-			if (selectedConversation) {
-				const selectedConv = conversations.find((c) => c.id === selectedConversation);
-				if (selectedConv) {
-					chatbox.select(selectedConv);
-					chatbox.mount(element);
-				}
-			}
-		}
-		handleSelectConversation();
+		let contactsListDivs = document.getElementsByClassName('contact-container');
+		conversations.forEach((conversation, index) => {
+			contactsListDivs[index].addEventListener('click', () => {
+				chatbox.select(conversation);
+			});
+		});
 	}
 
 	onMount(async () => {
 		await loadContacts();
-		await createConversation();
+		const me = new Talk.User(dosenMe);
+
+		// Start TalkJS Session
+		talkSession = new Talk.Session({
+			appId: 'tgziXhR8',
+			me: me
+		});
+
+		// Create and mount the chatbox
+		const chatbox = talkSession.createChatbox();
+		chatbox.mount(element);
+
+		// Handle contact selection
 	});
 </script>
 
@@ -85,16 +90,27 @@
 <Content title="Pesan" aside_title="Inbox">
 	<svelte:fragment slot="head">
 		<!-- bind:value={selectedContact} -->
-		<select
-			bind:value={selectedConversation}
-			on:click={handleSelectConversation}
-			class="text-sm rounded-lg block w-full lg:w-1/3 p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+		<button
+			on:click={() => (showContactList = !showContactList)}
+			class="text-sm rounded-lg block w-full lg:w-1/3 p-2.5 bg-gray-700 border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500"
+			>Pilih Mahasiswa</button
 		>
-			<option value="">Pilih Mahasiswa</option>
-			{#each contactList as contact}
-				<option value={contact.id}>{contact.name}, {contact.role}</option>
-			{/each}
-		</select>
+		{#if showContactList}
+			<div
+				class="text-sm rounded-lg w-full overflow-x-auto mt-11 h-96 lg:w-1/3 p-2.5 z-10 absolute inset-y-0 left-0 bg-gray-700 border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500"
+			>
+				{#each contactList as contact}
+					<div class=" hover:bg-blue-500 contact-container">
+						{contact.name}, {contact.role}
+						<img
+							src={`https://simakad.unismuh.ac.id/upload/mahasiswa/${contact.id}_.jpg?1714763929`}
+							alt=""
+							class=" rounded-full contact-img"
+						/>
+					</div>
+				{/each}
+			</div>
+		{/if}
 	</svelte:fragment>
 	<svelte:fragment slot="body">
 		<section class="w-full min-h-screen h-full">
@@ -110,7 +126,7 @@
 		</section>
 	</svelte:fragment>
 	<svelte:fragment slot="aside_body">
-		<div bind:this={inboxContainer}>
+		<div>
 			<img
 				src="https://ik.imagekit.io/nurman/koordinat-konsul/loading.svg?updatedAt=1717038962097"
 				height="100px"
@@ -121,3 +137,10 @@
 		</div>
 	</svelte:fragment>
 </Content>
+
+<style>
+	.contact-img {
+		height: 40px;
+		width: 40px;
+	}
+</style>
