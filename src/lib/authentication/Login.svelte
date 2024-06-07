@@ -7,11 +7,12 @@
 	async function handleLogin() {
 		try {
 			const token = await login(username, password);
-			alert('token = ' + token);
+			// alert('token = ' + token);
 
 			setSessionToken(token);
 			localStorage.setItem('userLogin', username);
-			alert('role' + whosLogin(username));
+			alert('Berhasi login sebagai: ' + whosLogin(username));
+
 			window.location.href = '/page/profile';
 		} catch (error) {
 			console.log(error);
