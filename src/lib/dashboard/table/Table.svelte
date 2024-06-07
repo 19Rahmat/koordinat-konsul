@@ -21,13 +21,13 @@
 	async function loadMahasiswa() {
 		try {
 			const data = await fetchLectureData2();
-			const mahasiswa = data.daftarmahasiswa as typeData[];
+			const mahasiswa = data.daftarmahasiswa as unknown as typeData[];
 			objectDatatable = functionCreateDatatable({
 				parData: mahasiswa,
 				parSearchableColumns: ['nama', 'nim', 'angkatan'],
 				parRowsPerPage: '10',
 				parSearchString: '',
-				parSortBy: 'id',
+				parSortBy: 'angkatan',
 				parSortOrder: 'ascending'
 			});
 		} catch (error) {
@@ -39,49 +39,55 @@
 {#await loadMahasiswa()}
 	<span class="text-white">MEMUAT DATA...</span>
 {:then}
-	<Engine bind:propDatatable={objectDatatable} />
+	<div class="flex flex-wrap gap-2 overflow-x-auto">
+		<Engine bind:propDatatable={objectDatatable} />
+		<div class="flex">
+			<div
+				class="px-4 inline-flex items-center min-w-fit rounded-s-md border-e-0 font-semibold bg-white"
+			>
+				<RowsPerPage bind:propDatatable={objectDatatable}>
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option value="all">ALL</option>
+				</RowsPerPage>
+			</div>
+			<div class="py-1 px-2 pe-8 block w-full shadow-sm rounded-e-lg text-sm bg-white">
+				<Search
+					bind:propDatatable={objectDatatable}
+					propPlaceholder="Search"
+					class="rounded-md p-1"
+				/>
+			</div>
+		</div>
 
-	<span>Search:</span>
-	<Search
-		bind:propDatatable={objectDatatable}
-		propPlaceholder="Type here..."
-		class="rounded-md p-1"
-	/>
-
-	<p>
-		<RowsPerPage bind:propDatatable={objectDatatable}>
-			<option value="5">5</option>
-			<option value="10">10</option>
-			<option value="20">20</option>
-			<option value="30">30</option>
-			<option value="all">ALL</option>
-		</RowsPerPage>
-		<span>RESULTS PER PAGE</span>
-	</p>
-	<p>
-		<Pagination bind:propDatatable={objectDatatable} propSize="small" />
-	</p>
-
-	<table class="w-full bg-white rounded-3xl">
-		<thead>
-			<tr>
-				<th>
-					<Sort bind:propDatatable={objectDatatable} propColumn={'nim'}>NIM</Sort>
-				</th>
-				<th>
-					<Sort bind:propDatatable={objectDatatable} propColumn={'nama'}>NAMA</Sort>
-				</th>
-				<th>ANGKATAN</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each objectDatatable.arrayData as row}
+		<table class="w-full bg-slate-100 rounded-xl">
+			<thead>
 				<tr>
-					<td class=" text-center">{row.nim}</td>
-					<td>{row.nama}</td>
-					<td class=" text-center">{row.angkatan}</td>
+					<th>
+						<Sort bind:propDatatable={objectDatatable} propColumn={'nim'}>NIM</Sort>
+					</th>
+					<th>
+						<Sort bind:propDatatable={objectDatatable} propColumn={'nama'}>NAMA</Sort>
+					</th>
+					<th>
+						<Sort bind:propDatatable={objectDatatable} propColumn={'angkatan'}>ANGKATAN</Sort>
+					</th>
 				</tr>
-			{/each}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{#each objectDatatable.arrayData as row}
+					<tr>
+						<td class=" text-center">{row.nim}</td>
+						<td>{row.nama}</td>
+						<td class=" text-center">{row.angkatan}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+		<div class="w-full flex justify-center flex-wrap">
+			<Pagination bind:propDatatable={objectDatatable} propSize="medium" />
+		</div>
+	</div>
 {/await}

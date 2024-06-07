@@ -89,7 +89,6 @@
 
 <Content title="Pesan" aside_title="Inbox">
 	<svelte:fragment slot="head">
-		<!-- bind:value={selectedContact} -->
 		<button
 			on:click={() => (showContactList = !showContactList)}
 			class="text-sm rounded-lg block w-full lg:w-1/3 p-2.5 bg-gray-700 border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500"
