@@ -88,11 +88,12 @@
 					return conversation;
 				});
 			} else {
-				const talkUser = new Talk.User(dosenMe);
-				console.log(talkUser);
-				const conversation = talkSession.getOrCreateConversation(Talk.oneOnOneId(me, talkUser));
+				const dosenTalk = new Talk.User(dosenMe);
+				console.log(dosenTalk);
+				const conversation = talkSession.getOrCreateConversation(Talk.oneOnOneId(me, dosenTalk));
 				conversation.setParticipant(me);
-				conversation.setParticipant(talkUser);
+				conversation.setParticipant(dosenTalk);
+				chatbox.select(conversation);
 				return conversation;
 			}
 		});
