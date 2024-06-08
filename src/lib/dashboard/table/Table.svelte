@@ -86,8 +86,7 @@
 				{/each}
 			</tbody>
 		</table>
-		<div class="w-full flex justify-center flex-wrap">
-			<Pagination bind:propDatatable={objectDatatable} propSize="medium" />
-		</div>
+
+		<Pagination bind:propDatatable={objectDatatable} propSize="medium" />
 	</div>
 {/await}

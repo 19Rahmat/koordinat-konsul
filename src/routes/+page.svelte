@@ -9,7 +9,7 @@
 <svelte:head>
 	<title>Koordinat-konsul</title>
 </svelte:head>
-<Content title="Beranda" aside_title="Bagan Konsultasi">
+<Content title="Beranda" aside_title="Bagan Konsultasi" visit={true}>
 	<svelte:fragment slot="head">
 		{#each control as tabel}
 			<ul class={`p-3 w-full rounded-3xl ${tabel.bg}`}>

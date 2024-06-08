@@ -38,21 +38,6 @@ async function fetchLectureData() {
 			}
 		});
 
-		// const dosenData = result.data.data.dosen;
-		// const mahasiswaData = dosenData.mahasiswa;
-
-		// const daftarmahasiswa: Mahasiswa[] = mahasiswaData.map((mahasiswa: any) => {
-		// 	return {
-		// 		nim: mahasiswa.nim,
-		// 		nama: mahasiswa.nama,
-		// 		angkatan: mahasiswa.angkatan
-		// 	};
-		// });
-
-		// return {
-		// 	dosen: dosenData,
-		// 	daftarmahasiswa: daftarmahasiswa
-		// };
 		return result.data;
 	} catch (error) {
 		console.error('Error fetching data:', error);

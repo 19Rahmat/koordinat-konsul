@@ -65,16 +65,13 @@
 	<title>Arsip</title>
 </svelte:head>
 
-<Content title="Arsip" aside_title="Form Konsultasi">
+<Content title="Arsip" aside_title="Form Konsultasi" visit={true}>
 	<svelte:fragment slot="head">
 		<select
 			bind:value={selectedStudent}
 			class="text-sm rounded-lg block w-full lg:w-1/3 p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
 		>
 			<option value="">Pilih Mahasiswa</option>
-			<!-- {#each Object.keys(consultationTable) as studentId}
-				<option value={studentId}>{studentId}</option>
-			{/each} -->
 			{#each contactList as studentId}
 				<option value={studentId}>{studentId.name} {studentId.angk}</option>
 			{/each}
