@@ -1,7 +1,17 @@
-<script>
-	import { data } from './data';
+<script lang="ts">
+	import { data, dataMhs } from './data';
 	import { page } from '$app/stores';
-	import { sidebarOpen} from '../store';
+	import { sidebarOpen } from '../store';
+	import { whosLogin } from '$lib/function/getData';
+
+	let btnData: any;
+	const idLogin = localStorage.getItem('userLogin');
+
+	if (whosLogin(idLogin) === 'mahasiswa') {
+		btnData = dataMhs;
+	} else {
+		btnData = data;
+	}
 
 	const style = {
 		title: `mx-4 text-sm whitespace-pre`,
@@ -14,8 +24,7 @@
 
 <ul class="md:pl-3">
 	<li>
-		{#each data as item (item.title)}
-		
+		{#each btnData as item (item.title)}
 			<a class={style.link} href={item.link}>
 				<div class={`p-2 ${item.link === $page.url.pathname ? style.active : ''}`}>
 					<span><svelte:component this={item.icon} /></span>
@@ -24,7 +33,6 @@
 					{item.title}
 				</span>
 			</a>
-			
 		{/each}
 	</li>
 </ul>

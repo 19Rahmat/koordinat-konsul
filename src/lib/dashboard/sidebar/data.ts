@@ -2,7 +2,7 @@ import HomeIcon from './icons/HomeIcon.svelte';
 import StatusIcon from './icons/StatusIcon.svelte';
 import ArchivesIcon from './icons/ArchivesIcon.svelte';
 
-export const data = [
+const data = [
 	{
 		title: 'Beranda',
 		icon: HomeIcon,
@@ -19,3 +19,18 @@ export const data = [
 		link: '/page/arsip'
 	}
 ];
+
+const dataMhs = [
+	{
+		title: 'Beranda',
+		icon: HomeIcon,
+		link: '/mahasiswa'
+	},
+	{
+		title: 'Arsip',
+		icon: ArchivesIcon,
+		link: '/mahasiswa/arsip'
+	}
+];
+
+export { data, dataMhs };

@@ -64,7 +64,7 @@
 	}
 </script>
 
-<Content title={`Profile ${getRole()}`} aside_title="Potret">
+<Content title={`Profile ${getRole()}`} aside_title="Potret" visit={true}>
 	<svelte:fragment slot="body">
 		<section class="w-full bg-white rounded-3xl p-2">
 			<div class="w-full lg:w-1/3 font-bold bg-green-300 rounded-3xl p-3 pl-5 flex gap-1">
@@ -199,7 +199,6 @@
 	.profile-card {
 		background-color: #fff;
 		border-radius: 8px;
-		/* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 		padding: 24px;
 	}
 

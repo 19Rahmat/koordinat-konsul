@@ -1,11 +1,8 @@
 <script lang="ts">
-	import Talk from 'talkjs';
 	import { onMount } from 'svelte';
 	import Content from '$lib/components/Content.svelte';
-	import { appId, dosenMe } from './talkJsConfig';
+	import Talk from 'talkjs';
 	import { fetchLectureData2 } from '$lib/data/Lecture';
-	import { fetchStudentsData } from '$lib/data/Students';
-	import { getRole } from '$lib/function/getData';
 
 	let element: HTMLElement | null;
 
@@ -13,9 +10,7 @@
 	let talkSession: any;
 	let conversations: any[] = [];
 
-	let mahasiswa: any[] = [];
 	let contactList: any[] = [];
-	let contactDosen: any[] = [];
 	let chatbox: any;
 
 	let data: any;
@@ -29,17 +24,13 @@
 
 	async function loadContacts() {
 		try {
-			if (getRole() === 'dosen') {
-				data = await fetchLectureData2();
-				contactList = data.daftarmahasiswa.map((mahasiswa: any) => ({
-					id: mahasiswa.nim,
-					name: mahasiswa.nama,
-					photoUrl: `https://simakad.unismuh.ac.id/upload/mahasiswa/${mahasiswa.nim}_.jpg?1714763929`,
-					role: 'mahasiswa'
-				}));
-			} else {
-				data = await fetchStudentsData();
-			}
+			data = await fetchLectureData2();
+			contactList = data.daftarmahasiswa.map((mahasiswa: any) => ({
+				id: mahasiswa.nim,
+				name: mahasiswa.nama,
+				photoUrl: `https://simakad.unismuh.ac.id/upload/mahasiswa/${mahasiswa.nim}_.jpg?1714763929`,
+				role: 'mahasiswa'
+			}));
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -48,27 +39,15 @@
 	function initTalk() {
 		Talk.ready.then(function () {
 			let me = null;
-			let mhs: any;
 			let dosen: any;
-			if (getRole() === 'dosen') {
-				const { nama, nidn } = data.dosen;
-				dosen = {
-					id: nidn,
-					name: nama,
-					photoUrl: `https://simakad.unismuh.ac.id/upload/dosen/${nidn}_.jpg?1714763929`,
-					role: 'default'
-				};
-				me = new Talk.User(dosen);
-			} else {
-				const { nim, nama } = data.data.mahasiswa;
-				mhs = {
-					id: nim,
-					name: nama,
-					photoUrl: `https://simakad.unismuh.ac.id/upload/mahasiswa/${nim}_.jpg?1714763929`,
-					role: 'mahasiswa'
-				};
-				me = new Talk.User(mhs);
-			}
+			const { nama, nidn } = data.dosen;
+			dosen = {
+				id: nidn,
+				name: nama,
+				photoUrl: `https://simakad.unismuh.ac.id/upload/dosen/${nidn}_.jpg?1714763929`,
+				role: 'default'
+			};
+			me = new Talk.User(dosen);
 
 			talkSession = new Talk.Session({
 				appId: 'tgziXhR8',
@@ -78,31 +57,19 @@
 			chatbox = talkSession.createChatbox();
 			chatbox.select(null);
 			chatbox.mount(element);
-
-			if (getRole() === 'dosen') {
-				conversations = contactList.map((contact) => {
-					const talkUser = new Talk.User(contact);
-					const conversation = talkSession.getOrCreateConversation(Talk.oneOnOneId(me, talkUser));
-					conversation.setParticipant(me);
-					conversation.setParticipant(talkUser);
-					return conversation;
-				});
-			} else {
-				const dosenTalk = new Talk.User(dosenMe);
-				console.log(dosenTalk);
-				const conversation = talkSession.getOrCreateConversation(Talk.oneOnOneId(me, dosenTalk));
+			conversations = contactList.map((contact) => {
+				const talkUser = new Talk.User(contact);
+				const conversation = talkSession.getOrCreateConversation(Talk.oneOnOneId(me, talkUser));
 				conversation.setParticipant(me);
-				conversation.setParticipant(dosenTalk);
-				chatbox.select(conversation);
+				conversation.setParticipant(talkUser);
 				return conversation;
-			}
+			});
 		});
 	}
 
 	onMount(async () => {
 		await loadContacts();
 		initTalk();
-		// console.log('di onMount', contactList);
 	});
 </script>
 
@@ -135,8 +102,8 @@
 		{/if}
 	</svelte:fragment>
 	<svelte:fragment slot="body">
-		<section class="w-full min-h-screen h-full">
-			<div bind:this={element} class="flex items-center w-full h-4/5">
+		<section class="w-full min-h-screen h-4/5 border border-gray-600 rounded-xl">
+			<div bind:this={element} class="flex items-center w-full h-full">
 				<img
 					src="https://ik.imagekit.io/nurman/koordinat-konsul/loading.svg?updatedAt=1717038962097"
 					height="100px"

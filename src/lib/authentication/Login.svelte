@@ -7,13 +7,14 @@
 	async function handleLogin() {
 		try {
 			const token = await login(username, password);
-			// alert('token = ' + token);
-
 			setSessionToken(token);
 			localStorage.setItem('userLogin', username);
 			alert('Berhasi login sebagai :   ' + whosLogin(username));
-
-			window.location.href = '/page/profile';
+			if (whosLogin(username) === 'mahasiswa') {
+				window.location.href = '/mahasiswa';
+			} else {
+				window.location.href = '/';
+			}
 		} catch (error) {
 			console.log(error);
 		}
