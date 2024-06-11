@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Content from '$lib/components/Content.svelte';
 	import { onMount } from 'svelte';
-	import { getPhoto, getRole, getSessionToken } from '$lib/function/getData';
+	import { getPhoto, getRole, getSessionToken } from '$lib/data/getData';
 	import { fetchStudentsData } from '$lib/data/Students';
 	import { fetchLectureData } from '$lib/data/Lecture';
 

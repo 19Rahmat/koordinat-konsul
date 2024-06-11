@@ -1,7 +1,7 @@
 <script>
-	import { clearSessionToken } from '$lib/function/getData';
+	import { clearSessionToken } from '$lib/data/getData';
 	import { openSidebar } from './store';
-	import { getPhoto } from '../function/getData';
+	import { getPhoto } from '$lib/data/getData';
 
 	let isProfilOpen = false;
 	function handleLogout() {

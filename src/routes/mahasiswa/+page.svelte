@@ -21,11 +21,10 @@
 		Talk.ready.then(function () {
 			let me = null;
 			let mhs: any;
-			let dosen: any;
 			const { nim, nama } = data.data.mahasiswa;
 			mhs = {
 				id: nim,
-				name: 'DOSEN PA',
+				name: nama,
 				photoUrl: `https://simakad.unismuh.ac.id/upload/mahasiswa/${nim}_.jpg?1714763929`,
 				role: 'mahasiswa'
 			};
@@ -44,13 +43,21 @@
 			const dosenTalk = new Talk.User({
 				id: dosenPA,
 				name: 'Dosen PA',
-				photoUrl: `https://simakad.unismuh.ac.id/upload/dosen/${dosenPA}_.jpg?1714763929`
+				photoUrl: `https://simakad.unismuh.ac.id/upload/dosen/${dosenPA}_.jpg?1714763929`,
+				role: 'default'
 			});
 			console.log(dosenTalk);
 			const conversation = talkSession.getOrCreateConversation(Talk.oneOnOneId(me, dosenTalk));
 			conversation.setParticipant(me);
 			conversation.setParticipant(dosenTalk);
+
 			chatbox.select(conversation);
+			chatbox.onCustomConversationAction('ajukanPersetujuan', (event: any) => {
+				alert('aww');
+			});
+			chatbox.onCustomMessageAction('nurmanAct', (event: any) => {
+				alert('hahah');
+			});
 		});
 	}
 
@@ -62,7 +69,7 @@
 
 <Content title="Beranda" aside_title="Konsultasi" visit={true}>
 	<svelte:fragment slot="body">
-		<section class="w-full min-h-screen h-4/5 border border-gray-600 rounded-xl">
+		<section class="w-full min-h-screen h-4/5">
 			<div bind:this={element} class="flex items-center w-full h-full">
 				<img
 					src="https://ik.imagekit.io/nurman/koordinat-konsul/loading.svg?updatedAt=1717038962097"
@@ -72,6 +79,14 @@
 				/>
 				<p class=" text-white">Loading chat...</p>
 			</div>
+		</section>
+	</svelte:fragment>
+	<svelte:fragment slot="aside_body">
+		<section
+			class="h-80 border-t border-gray-400 w-full flex flex-col items-center justify-center gap-3"
+		>
+			<h1 class="text-9xl font-bold text-gray-200">3/8</h1>
+			<p class=" text-xl font-semibold text-white">selesai</p>
 		</section>
 	</svelte:fragment>
 </Content>

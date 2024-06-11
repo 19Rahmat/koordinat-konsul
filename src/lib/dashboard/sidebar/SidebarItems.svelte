@@ -2,7 +2,7 @@
 	import { data, dataMhs } from './data';
 	import { page } from '$app/stores';
 	import { sidebarOpen } from '../store';
-	import { whosLogin } from '$lib/function/getData';
+	import { whosLogin } from '$lib/data/getData';
 
 	let btnData: any;
 	const idLogin = localStorage.getItem('userLogin');

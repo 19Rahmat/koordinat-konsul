@@ -2,17 +2,17 @@
 	import Layout from '$lib/dashboard/Layout.svelte';
 	import Login from '../lib/authentication/Login.svelte';
 	import { onMount } from 'svelte';
-	import {isLoggedIn} from '$lib/function/getData';
-	
+	import { isLoggedIn } from '$lib/data/getData';
+
 	let hasSession = false;
 
-onMount(()=>{
-	checkSession();
-})
+	onMount(() => {
+		checkSession();
+	});
 
-function checkSession(){
-	hasSession = isLoggedIn()
-}
+	function checkSession() {
+		hasSession = isLoggedIn();
+	}
 </script>
 
 {#if hasSession}
@@ -20,5 +20,5 @@ function checkSession(){
 		<slot />
 	</Layout>
 {:else}
-<Login />
-{/if} 
+	<Login />
+{/if}

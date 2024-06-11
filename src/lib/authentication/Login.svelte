@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { login, setSessionToken, whosLogin } from '../function/getData';
+	import { login, setSessionToken, whosLogin } from '$lib/data/getData';
 
 	let username = '';
 	let password = '';
