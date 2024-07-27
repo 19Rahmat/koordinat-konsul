@@ -3,12 +3,18 @@
 	import { onMount } from 'svelte';
 	import Talk from 'talkjs';
 	import { fetchStudentsData } from '$lib/data/Students';
+	import { createConsultation } from '$lib/data/configFirestore';
 
 	let element: HTMLElement | null;
 	let talkSession: any;
 	let chatbox: any;
 	let data: any;
 
+	const consultationData = {
+		date: '2023-12-25',
+		description: 'Discuss project requirements and timeline',
+		ket: 'Initial consultation for project X'
+	};
 	async function loadContacts() {
 		try {
 			data = await fetchStudentsData();
@@ -53,7 +59,9 @@
 
 			chatbox.select(conversation);
 			chatbox.onCustomConversationAction('ajukanPersetujuan', (event: any) => {
-				alert('aww');
+				// createConsultation();
+				createConsultation('0903058406', '105841109519', consultationData);
+				alert('Permohonan berhasil terkirim');
 			});
 			chatbox.onCustomMessageAction('nurmanAct', (event: any) => {
 				alert('hahah');

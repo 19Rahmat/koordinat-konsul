@@ -41,6 +41,7 @@
 
 	function generateReport() {
 		reportTableVisible = true;
+		alert('laporan disimpan');
 	}
 
 	function removeRow(studentId: any, index: any) {
@@ -72,8 +73,8 @@
 			class="text-sm rounded-lg block w-full lg:w-1/3 p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
 		>
 			<option value="">Pilih Mahasiswa</option>
-			{#each contactList as studentId}
-				<option value={studentId}>{studentId.name} {studentId.angk}</option>
+			{#each Object.keys(consultationTable) as studentId}
+				<option value={studentId}>{studentId}</option>
 			{/each}
 		</select>
 	</svelte:fragment>
@@ -138,7 +139,7 @@
 				<div
 					class="border-2 border-gray-600 flex items-center justify-center rounded-3xl w-full h-64"
 				>
-					<p class="text-white text-lg font-semibold">Preview Laporan Konsultasi</p>
+					<p class="text-white text-lg font-semibold">Mahasiswa Belum Melakukan Konsultasi</p>
 				</div>
 			{/if}
 		</section>
@@ -280,15 +281,20 @@
 			</div>
 
 			<div class="flex mt-2">
-				<button
+				<!-- <button
 					on:click={addRow}
 					class="px-4 inline-flex items-center min-w-fit rounded-s-md border-e-0 bg-indigo-700 text-xl text-white font-semibold"
 					>+</button
-				>
-				<button
+				> -->
+				<!-- <button
 					on:click={generateReport}
 					class="py-2 px-3 pe-11 block w-full shadow-sm rounded-e-lg text-sm font-medium bg-green-200"
-					>Tampilkan Tabel Laporan</button
+					>Simpan Table Laporan</button
+				> -->
+				<button
+					on:click={generateReport}
+					class="py-2 px-3 pe-11 block w-full shadow-sm rounded-lg text-sm font-medium bg-green-200"
+					>Simpan Table Laporan</button
 				>
 			</div>
 		</div>
