@@ -1,31 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
-	// @ts-ignore
-	export let shouldPrint = false;
-
-	onMount(() => {
-		if (shouldPrint) {
-			printComponent();
-		}
-	});
-
-	function printComponent() {
-		const printContents = document.getElementById('printableTable')?.innerHTML;
-		if (!printContents) return;
-
-		const originalContents = document.body.innerHTML;
-
-		document.body.innerHTML = printContents;
-
-		window.print();
-
-		document.body.innerHTML = originalContents;
-		window.location.reload();
-	}
 </script>
 
-<!-- <div class={$shouldPrint ? '' : 'hidden'}> -->
-<div class="bg-white w-full h-full rounded-3xl overflow-hidden border-2 border-gray-600">
+<div
+	id="reportKonsul"
+	class="bg-white w-full h-full rounded-3xl overflow-hidden border-2 border-gray-600"
+>
 	<header class="flex items-center justify-center px-3">
 		<img src="/images/kop_surat.png" alt="logo unismuh" class="w-full h-full" />
 	</header>
@@ -78,8 +58,6 @@
 		</table>
 	</sectxion>
 </div>
-
-<!-- </div> -->
 
 <style>
 	.hidden {

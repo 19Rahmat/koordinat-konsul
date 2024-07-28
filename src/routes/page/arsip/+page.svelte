@@ -4,7 +4,7 @@
 	import { fetchLectureData2 } from '$lib/data/Lecture';
 	import { onMount } from 'svelte';
 	import { db } from '$lib/data/firebase';
-	import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+	import { doc, getDoc, updateDoc, arrayUnion, Timestamp, deleteField } from 'firebase/firestore';
 
 	let selectedStudent = '';
 
@@ -29,7 +29,9 @@
 	let docId = '0903058406'; // Replace with your document ID
 	let data: any = [];
 	let fireStoreData: Record<string, KonsulItem[]> = {};
-	let date: Date;
+	let date = '';
+	let desc = '';
+	let approve = false;
 	// let d
 
 	let selectedKey = '';
@@ -79,7 +81,21 @@
 		data = fireStoreData[selectedKey];
 	}
 
-	function handleUpdate() {}
+	async function deleteFieldFromDocument(docId: string, field: number) {
+		try {
+			const docRef = doc(db, 'koordinatKonsul', docId);
+			await updateDoc(docRef, {
+				[field]: deleteField()
+			});
+			console.log(`Field deleted: ${field}`);
+		} catch (e) {
+			console.error('Error deleting field: ', e);
+		}
+	}
+	function handleUpdate() {
+		const timestamp = Timestamp.fromDate(new Date(date));
+		updateDocument(docId, selectedKey, desc, date);
+	}
 
 	onMount(async () => {
 		fetchDocument();
@@ -290,7 +306,7 @@
 						</div>
 
 						<button
-							on:click={() => removeRow(selectedStudent, index)}
+							on:click={() => deleteFieldFromDocument(docId, index)}
 							class="text-white focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 bg-red-600 hover:bg-red-700"
 							>Hapus</button
 						>
@@ -306,7 +322,7 @@
 
 			<div class="flex mt-2">
 				<button
-					on:click={removeRow}
+					on:click={handleUpdate}
 					class="py-2 px-3 pe-11 block w-full shadow-sm rounded-lg text-sm font-medium bg-green-200"
 					>Simpan Table Laporan</button
 				>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Content from '$lib/components/Content.svelte';
-	import { createConsultation } from '$lib/data/configFirestore';
+	// import { createConsultation } from '$lib/data/configFirestore';
 	import ControlCard from '$lib/components/ControlCard.svelte';
 	import { writable } from 'svelte/store';
 
@@ -15,31 +15,15 @@
 	let shouldPrint = false;
 
 	function triggerPrint() {
-		shouldPrint = true;
+		let laporan = document.getElementById('reportKonsul');
+
+		window.print();
 	}
 </script>
 
 <Content title="Arsip" aside_title="Tindakan" visit={true}>
 	<svelte:fragment slot="body">
-		<!-- {#if shouldPrint} -->
-		<ControlCard {shouldPrint} />
-		<!-- {/if} -->
-		<!-- <h2>Consultation</h2>
-		<form on:submit|preventDefault={createConsultation}>
-			<label>
-				Time:
-				<input type="datetime-local" bind:value={time} />
-			</label>
-			<label>
-				Description:
-				<textarea bind:value={description} />
-			</label>
-			<label>
-				Student ID:
-				<input type="text" bind:value={studentId} />
-			</label>
-			<button type="submit">Create</button>
-		</form> -->
+		<ControlCard />
 	</svelte:fragment>
 	<svelte:fragment slot="aside_body">
 		<button
