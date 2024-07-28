@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import { getPhoto, getRole, getSessionToken } from '$lib/data/getData';
 	import { fetchStudentsData } from '$lib/data/Students';
-	import { fetchLectureData } from '$lib/data/Lecture';
+	import { fetchLectureData2 } from '$lib/data/Lecture';
 
 	console.log(getRole());
 	console.log(getSessionToken());
@@ -18,14 +18,19 @@
 		hp: string;
 		email: string;
 		dosenPA: string;
+		dosenPenasehat: DosenPenasehat;
+		// nama: string;
 		khs: Akademik[];
+	}
+
+	interface DosenPenasehat {
+		nama: string;
 	}
 
 	interface Akademik {
 		ips: string;
 		ipk: string;
 		statusMahasiswa: string;
-		tahunAkademik: string;
 	}
 
 	interface Dosen {
@@ -44,15 +49,19 @@
 	onMount(async () => {
 		try {
 			const dataMahasiswa = await fetchStudentsData();
-			const dataDosen = await fetchLectureData();
+			console.log('mahasiswa', dataMahasiswa);
+
+			const dataDosen = await fetchLectureData2();
+			console.log('dosen', dataDosen.dosen);
+			console.log('data used', mahasiswa);
+			dosen = dataDosen.dosen;
 			mahasiswa = dataMahasiswa.data.mahasiswa;
-			dosen = dataDosen.data.dosen;
 
 			if (mahasiswa?.khs) {
 				nilaiAkademik = mahasiswa.khs[mahasiswa.khs.length - 1];
 			}
 
-			console.log(mahasiswa);
+			console.log('data used', mahasiswa);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -95,13 +104,14 @@
 									<td>:</td>
 									<td>{mahasiswa.tempatLahir}</td>
 								</tr>
-								<tr>
-									<td>Tanggal Lahir</td>
-									<td>:</td>
-									<td>{formatDate(mahasiswa.tanggalLahir)}</td>
-								</tr>
+
 								<tr>
 									<td>Dosen PA</td>
+									<td>:</td>
+									<td>{mahasiswa.dosenPenasehat.nama}</td>
+								</tr>
+								<tr>
+									<td>Nidn PA</td>
 									<td>:</td>
 									<td>{mahasiswa.dosenPA}</td>
 								</tr>
@@ -109,11 +119,6 @@
 									<td>Email</td>
 									<td>:</td>
 									<td>{mahasiswa.email}</td>
-								</tr>
-								<tr>
-									<td>No. HP</td>
-									<td>:</td>
-									<td>{mahasiswa.hp}</td>
 								</tr>
 							</table>
 							<div class="profile-line" />
@@ -139,11 +144,6 @@
 								<td>IPK</td>
 								<td>:</td>
 								<td>{nilaiAkademik.ipk}</td>
-							</tr>
-							<tr>
-								<td>Tahun Akademik</td>
-								<td>:</td>
-								<td>{nilaiAkademik.tahunAkademik}</td>
 							</tr>
 						</table>
 					</div>

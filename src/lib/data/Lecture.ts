@@ -1,57 +1,13 @@
 import { data } from '$lib/dashboard/sidebar/data';
 import axios from 'axios';
 
-async function fetchLectureData() {
-	try {
-		const token = localStorage.getItem('authToken');
-		const nidn = localStorage.getItem('userLogin');
-
-		if (!nidn || !token) {
-			throw new Error('NIM or token not found in localStorage');
-		}
-
-		const result = await axios({
-			url: 'https://sicekcok.if.unismuh.ac.id/graphql',
-			method: 'post',
-			headers: {
-				Authorization: `Bearer ${token}`
-			},
-			data: {
-				query: `
-          query Dosen {
-            dosen(nidn: "${nidn}") {
-				nidn
-				nama
-				gelar_belakang
-				tempat_lahir
-				tanggal_lahir
-				hp
-				email
-				mahasiswa {
-					nim
-					nama
-					angkatan
-				}
-            }
-          }
-        `
-			}
-		});
-
-		return result.data;
-	} catch (error) {
-		console.error('Error fetching data:', error);
-		throw error;
-	}
-}
-
 interface Mahasiswa {
 	nim: string;
 	nama: string;
 	angkatan: number;
 }
 
-async function fetchLectureData2() {
+export async function fetchLectureData2() {
 	try {
 		const token = localStorage.getItem('authToken');
 		const nidn = localStorage.getItem('userLogin');
@@ -70,18 +26,21 @@ async function fetchLectureData2() {
 				query: `
           query Dosen {
             dosen(nidn: "${nidn}") {
-				nidn
-				nama
-				gelar_belakang
-				tempat_lahir
-				tanggal_lahir
-				hp
-				email
-				mahasiswa {
-					nim
-					nama
-					angkatan
-				}
+			   	nidn
+        		nama
+       			gelar_depan
+        		gelar_belakang
+        		tempat_lahir
+        		email
+        		prodiId
+				  mahasiswa {
+            nim
+            kodeProdi
+            angkatan
+            nama
+            jenisKelamin
+            semesterAwal
+        }
             }
           }
         `
@@ -108,4 +67,4 @@ async function fetchLectureData2() {
 		throw error;
 	}
 }
-export { fetchLectureData, fetchLectureData2 };
+// export { fetchLectureData2 };

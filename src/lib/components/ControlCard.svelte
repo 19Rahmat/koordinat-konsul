@@ -33,7 +33,7 @@
 		<p>KARTU KONTROL PENASEHAT AKADEMIK</p>
 		<p>FAKULTAS TEKNIK</p>
 		<p>PROGRAM STUDI : INFORMATIKA</p>
-		<p>TAHUN AKADEMIK : 2020 - 2021 (1)</p>
+		<p>TAHUN AKADEMIK : 2023 - 2024 (2)</p>
 	</section>
 	<sectxion class="text-black">
 		<table>

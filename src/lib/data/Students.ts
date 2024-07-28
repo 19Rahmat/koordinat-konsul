@@ -17,25 +17,35 @@ async function fetchStudentsData() {
 			},
 			data: {
 				query: `
-          query Mahasiswa {
-            mahasiswa(nim: "${nim}") {
-              nim
-              angkatan
-              nama
-              jenisKelamin
-              tempatLahir
-              tanggalLahir
-              hp
-              email
-              dosenPA
-              khs {
-                ips
-                statusMahasiswa
-                ipk
-                tahunAkademik
-              }
-            }
-          }
+					query Mahasiswa {
+				mahasiswa(nim: "105841109519") {
+					nim
+					kodeProdi
+					angkatan
+					nama
+					jenisKelamin
+					tempatLahir
+					email
+					dosenPA
+					semesterAwal
+					lulus
+					masaStudi
+					dosenPenasehat {
+						nidn
+						nama
+						gelar_depan
+						gelar_belakang
+					}
+					khs {
+						id
+						nim
+						ips
+						ipk
+						sksTotal
+						statusMahasiswa
+					}
+				}
+			}
         `
 			}
 		});

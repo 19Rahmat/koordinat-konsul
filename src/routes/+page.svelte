@@ -15,11 +15,11 @@
 			<ul class={`p-3 w-full rounded-3xl ${tabel.bg}`}>
 				<li class="text-center">
 					<p class="text-sm font-bold opacity-70">{tabel.title}</p>
-					<a href={tabel.link}>
+					<div>
 						<span class="flex items-center justify-center h-20"
 							><svelte:component this={tabel.icon} /></span
-						></a
-					>
+						>
+					</div>
 				</li>
 				<p class="text-xs font-bold m-0">Progress</p>
 				<div class="w-full h-1 flex rounded-md overflow-hidden bg-white my-2 mx-0">

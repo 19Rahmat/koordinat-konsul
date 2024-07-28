@@ -3,18 +3,46 @@
 	import { onMount } from 'svelte';
 	import Talk from 'talkjs';
 	import { fetchStudentsData } from '$lib/data/Students';
-	import { createConsultation } from '$lib/data/configFirestore';
+	// import { createConsultation } from '$lib/data/configFirestore';
+	import { db } from '$lib/data/firebase';
+	import { addDoc, collection, doc, setDoc, getDoc } from 'firebase/firestore';
+
+	async function createDocument(documentId: string, key: string, desc: string, date: string) {
+		const docRef = doc(db, 'koordinatKonsul', documentId);
+
+		try {
+			// Fetch the current document
+			const docSnap = await getDoc(docRef);
+
+			// Initialize the data object
+			let data = {};
+
+			// If the document exists, get the existing data
+			if (docSnap.exists()) {
+				data = docSnap.data();
+			}
+
+			// If the key already exists, append to the array, otherwise create a new array
+			if (data[key]) {
+				data[key].push({ desc, date });
+			} else {
+				data[key] = [{ desc, date }];
+			}
+
+			// Write the updated data back to Firestore
+			await setDoc(docRef, data);
+
+			console.log(`Document updated with new data under key ${key}`);
+		} catch (e) {
+			console.error('Error updating document: ', e);
+		}
+	}
 
 	let element: HTMLElement | null;
 	let talkSession: any;
 	let chatbox: any;
 	let data: any;
 
-	const consultationData = {
-		date: '2023-12-25',
-		description: 'Discuss project requirements and timeline',
-		ket: 'Initial consultation for project X'
-	};
 	async function loadContacts() {
 		try {
 			data = await fetchStudentsData();
@@ -60,7 +88,13 @@
 			chatbox.select(conversation);
 			chatbox.onCustomConversationAction('ajukanPersetujuan', (event: any) => {
 				// createConsultation();
-				createConsultation('0903058406', '105841109519', consultationData);
+				// createConsultation('0903058406', '105841109519', consultationData);
+				createDocument(
+					'0903058406',
+					'105841109119',
+					'lulus 2024',
+					'July 24, 2024 at 7:43:44 PM UTC+8'
+				);
 				alert('Permohonan berhasil terkirim');
 			});
 			chatbox.onCustomMessageAction('nurmanAct', (event: any) => {
