@@ -18,7 +18,7 @@ async function fetchStudentsData() {
 			data: {
 				query: `
 					query Mahasiswa {
-				mahasiswa(nim: "105841109519") {
+				mahasiswa(nim: "${nim}") {
 					nim
 					kodeProdi
 					angkatan

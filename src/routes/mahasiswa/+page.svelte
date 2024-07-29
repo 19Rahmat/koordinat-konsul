@@ -51,6 +51,7 @@
 			data = await fetchStudentsData();
 			nidnFireStore = data.data.mahasiswa.dosenPA;
 			nimFireStore = data.data.mahasiswa.nim;
+			console.log('nidn', nidnFireStore, '  ', 'nim', nimFireStore);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
