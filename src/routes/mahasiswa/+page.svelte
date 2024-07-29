@@ -7,6 +7,9 @@
 	import { db } from '$lib/data/firebase';
 	import { addDoc, collection, doc, setDoc, getDoc } from 'firebase/firestore';
 
+	let nimFireStore = '';
+	let nidnFireStore = '';
+
 	async function createDocument(documentId: string, key: string, desc: string, date: string) {
 		const docRef = doc(db, 'koordinatKonsul', documentId);
 
@@ -46,6 +49,8 @@
 	async function loadContacts() {
 		try {
 			data = await fetchStudentsData();
+			nidnFireStore = data.data.mahasiswa.dosenPA;
+			nimFireStore = data.data.mahasiswa.nim;
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -89,12 +94,7 @@
 			chatbox.onCustomConversationAction('ajukanPersetujuan', (event: any) => {
 				// createConsultation();
 				// createConsultation('0903058406', '105841109519', consultationData);
-				createDocument(
-					'0903058406',
-					'105841109119',
-					'lulus 2024',
-					'July 24, 2024 at 7:43:44 PM UTC+8'
-				);
+				createDocument(nidnFireStore, nimFireStore, ' ', ' ');
 				alert('Permohonan berhasil terkirim');
 			});
 			chatbox.onCustomMessageAction('nurmanAct', (event: any) => {

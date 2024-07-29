@@ -4,7 +4,15 @@
 	import { fetchLectureData2 } from '$lib/data/Lecture';
 	import { onMount } from 'svelte';
 	import { db } from '$lib/data/firebase';
-	import { doc, getDoc, updateDoc, arrayUnion, Timestamp, deleteField } from 'firebase/firestore';
+	import {
+		doc,
+		getDoc,
+		updateDoc,
+		arrayUnion,
+		Timestamp,
+		deleteField,
+		arrayRemove
+	} from 'firebase/firestore';
 
 	let selectedStudent = '';
 
@@ -26,7 +34,8 @@
 		date: string;
 	};
 
-	let docId = '0903058406'; // Replace with your document ID
+	// let docId = '0903058406';
+	let docId: any;
 	let data: any = [];
 	let fireStoreData: Record<string, KonsulItem[]> = {};
 	let date = '';
@@ -64,9 +73,10 @@
 
 			if (docSnap.exists()) {
 				fireStoreData = docSnap.data();
-				selectedKey = Object.keys(fireStoreData)[0]; // Default to the first key
+				// selectedKey = Object.keys(fireStoreData)[0]; // Default to the first key
 				data = fireStoreData[selectedKey];
 				console.log('Document data:', fireStoreData);
+				// console.log('the data', data);
 			} else {
 				console.log('No such document!');
 			}
@@ -81,23 +91,25 @@
 		data = fireStoreData[selectedKey];
 	}
 
-	async function deleteFieldFromDocument(docId: string, field: number) {
+	async function deleteFieldFromDocument(docId: string, field: string, index: number) {
 		try {
 			const docRef = doc(db, 'koordinatKonsul', docId);
 			await updateDoc(docRef, {
-				[field]: deleteField()
+				[field]: arrayRemove(index)
 			});
 			console.log(`Field deleted: ${field}`);
 		} catch (e) {
 			console.error('Error deleting field: ', e);
 		}
 	}
+
 	function handleUpdate() {
 		const timestamp = Timestamp.fromDate(new Date(date));
 		updateDocument(docId, selectedKey, desc, date);
 	}
 
 	onMount(async () => {
+		docId = localStorage.getItem('userLogin');
 		fetchDocument();
 	});
 </script>
@@ -189,7 +201,7 @@
 			<div class="bg-white rounded-lg p-4 gap-1 flex flex-col">
 				{#if data}
 					{#each data as row, index}
-						<span>Konsultasi ke {index + 1}</span>
+						<span>Konsultasi ke {index}</span>
 						<div class="flex rounded-lg shadow-sm">
 							<span
 								class="px-4 inline-flex items-center min-w-fit rounded-s-md border border-e-0 border-gray-200 bg-gray-300 text-2xl text-gray-700"
@@ -306,7 +318,7 @@
 						</div>
 
 						<button
-							on:click={() => deleteFieldFromDocument(docId, index)}
+							on:click={() => deleteFieldFromDocument(docId, data, index)}
 							class="text-white focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 bg-red-600 hover:bg-red-700"
 							>Hapus</button
 						>
