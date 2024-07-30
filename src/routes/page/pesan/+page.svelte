@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import Content from '$lib/components/Content.svelte';
 	import Talk from 'talkjs';
-	import { fetchLectureData2 } from '$lib/data/Lecture';
+	import { fetchLectureData2 } from '$lib/data/getData';
 
 	let element: HTMLElement | null;
 

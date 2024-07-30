@@ -2,8 +2,8 @@
 	import Content from '$lib/components/Content.svelte';
 	import { onMount } from 'svelte';
 	import { getPhoto, getRole, getSessionToken } from '$lib/data/getData';
-	import { fetchStudentsData } from '$lib/data/Students';
-	import { fetchLectureData2 } from '$lib/data/Lecture';
+	import { fetchStudentsData } from '$lib/data/getData';
+	import { fetchLectureData2 } from '$lib/data/getData';
 
 	console.log(getRole());
 	console.log(getSessionToken());
@@ -49,13 +49,14 @@
 	onMount(async () => {
 		try {
 			const dataMahasiswa = await fetchStudentsData();
-			console.log('mahasiswa', dataMahasiswa);
+			console.log(dataMahasiswa);
 
 			const dataDosen = await fetchLectureData2();
 			console.log('dosen', dataDosen.dosen);
 			console.log('data used', mahasiswa);
 			dosen = dataDosen.dosen;
 			mahasiswa = dataMahasiswa.data.mahasiswa;
+			console.log('mahasiswa', mahasiswa);
 
 			if (mahasiswa?.khs) {
 				nilaiAkademik = mahasiswa.khs[mahasiswa.khs.length - 1];

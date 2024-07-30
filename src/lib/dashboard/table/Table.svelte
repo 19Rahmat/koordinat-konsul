@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { typeDatatable } from 'svelte-datatables-net';
-	import { fetchLectureData2 } from '$lib/data/Lecture';
+	import { fetchLectureData2 } from '$lib/data/getData';
 	import {
 		Engine,
 		functionCreateDatatable,

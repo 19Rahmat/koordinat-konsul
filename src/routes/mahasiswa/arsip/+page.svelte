@@ -1,8 +1,9 @@
 <script lang="ts">
 	import Content from '$lib/components/Content.svelte';
-	// import { createConsultation } from '$lib/data/configFirestore';
 	import ControlCard from '$lib/components/ControlCard.svelte';
-	import { writable } from 'svelte/store';
+	import PrintPdf from 'svelte-printpdf';
+
+	let print = false;
 
 	let time = '';
 	let description = '';
@@ -11,23 +12,19 @@
 	function handlePrint() {
 		Cetak = true;
 	}
-
-	let shouldPrint = false;
-
-	function triggerPrint() {
-		let laporan = document.getElementById('reportKonsul');
-
-		window.print();
-	}
 </script>
 
 <Content title="Arsip" aside_title="Tindakan" visit={true}>
 	<svelte:fragment slot="body">
-		<ControlCard />
+		<PrintPdf bind:print>
+			<ControlCard />
+		</PrintPdf>
 	</svelte:fragment>
 	<svelte:fragment slot="aside_body">
 		<button
-			on:click={triggerPrint}
+			on:click={() => {
+				print = true;
+			}}
 			class=" text-white text-3xl bg-blue-500 p-6 rounded-lg w-full flex items-center justify-center gap-5"
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"

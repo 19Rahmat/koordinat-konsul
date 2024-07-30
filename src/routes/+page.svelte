@@ -3,7 +3,7 @@
 	import { control } from '$lib/dashboard/table/tableControl';
 	import { page } from '$app/stores';
 	import Table from '$lib/dashboard/table/Table.svelte';
-	import Pie from '$lib/Pie.svelte';
+	import Pie from '$lib/components/Pie.svelte';
 </script>
 
 <svelte:head>

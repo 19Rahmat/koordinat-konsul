@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Content from '../../../lib/components/Content.svelte';
 	import consultationTable from '$lib/data/consultation';
-	import { fetchLectureData2 } from '$lib/data/Lecture';
+	import { fetchLectureData2 } from '$lib/data/getData';
 	import { onMount } from 'svelte';
 	import { db } from '$lib/data/firebase';
 	import {
@@ -339,8 +339,18 @@
 					>Simpan Table Laporan</button
 				>
 			</div>
-		</div>
-	</svelte:fragment>
+			<div class="flex mt-2">
+				<button
+					class="px-4 inline-flex items-center min-w-fit rounded-s-md border-e-0 bg-indigo-700 text-xl text-white font-semibold"
+					>✓</button
+				>
+				<button
+					class="py-2 px-3 pe-11 block w-full shadow-sm rounded-e-lg text-sm font-medium bg-green-200"
+					>Tampilkan Tabel Laporan</button
+				>
+			</div>
+		</div></svelte:fragment
+	>
 </Content>
 
 <style>
