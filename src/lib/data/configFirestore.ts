@@ -1,5 +1,5 @@
 import { db } from '$lib/data/firebase';
-import { doc, setDoc, collection, getDoc, getDocs } from 'firebase/firestore';
+import { doc, setDoc, collection, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 
 async function createDocumentWithSubcollection(mainDocId: string, subcollectionName: string) {
 	try {
@@ -48,4 +48,39 @@ async function fetchSubcollectionItems(mainDocId: string, subcollectionName: str
 	}
 }
 
-export { createDocumentWithSubcollection, fetchSubcollectionItems };
+async function fetchSignatureUrl(docId: string) {
+	try {
+		const docRef = doc(db, 'koordinatKonsul', docId);
+		const docSnap = await getDoc(docRef);
+
+		if (docSnap.exists()) {
+			const data = docSnap.data();
+			return data.handSignature;
+		} else {
+			console.log('No such document! Creating a new one.');
+			await setDoc(docRef, { handSignature: '' });
+			alert('ttd not found');
+		}
+	} catch (error) {
+		console.error('Error fetching photo URL:', error);
+	}
+}
+
+async function updatePhotoUrl(photoUrl: string, docId: string, newUrl: string) {
+	try {
+		const docRef = doc(db, 'koordinatKonsul', docId);
+		await updateDoc(docRef, { handSignature: newUrl });
+
+		// Update the local state with the new URL
+		photoUrl = newUrl;
+	} catch (error) {
+		console.error('Error updating photo URL:', error);
+	}
+}
+
+export {
+	createDocumentWithSubcollection,
+	fetchSubcollectionItems,
+	fetchSignatureUrl,
+	updatePhotoUrl
+};

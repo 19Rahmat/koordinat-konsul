@@ -4,6 +4,9 @@
 	import Talk from 'talkjs';
 	import { fetchStudentsData } from '$lib/data/getData';
 	import { createDocumentWithSubcollection } from '$lib/data/configFirestore';
+	import { fetchSubcollectionItems } from '$lib/data/configFirestore';
+
+	let subcollectionItems: any[] | undefined = [];
 
 	let nimFireStore = '';
 	let nidnFireStore = '';
@@ -73,6 +76,7 @@
 	onMount(async () => {
 		await loadContacts();
 		initTalk();
+		subcollectionItems = await fetchSubcollectionItems(nidnFireStore, nimFireStore);
 	});
 </script>
 
@@ -94,7 +98,7 @@
 		<section
 			class="h-80 border-t border-gray-400 w-full flex flex-col items-center justify-center gap-3"
 		>
-			<h1 class="text-9xl font-bold text-gray-200">3/8</h1>
+			<h1 class="text-9xl font-bold text-gray-200">{subcollectionItems?.length}/8</h1>
 			<p class=" text-xl font-semibold text-white">selesai</p>
 		</section>
 	</svelte:fragment>

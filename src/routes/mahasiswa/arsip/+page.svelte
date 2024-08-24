@@ -4,14 +4,6 @@
 	import PrintPdf from 'svelte-printpdf';
 
 	let print = false;
-
-	let time = '';
-	let description = '';
-	let studentId = '';
-	let Cetak = false;
-	function handlePrint() {
-		Cetak = true;
-	}
 </script>
 
 <Content title="Arsip" aside_title="Tindakan" visit={true}>

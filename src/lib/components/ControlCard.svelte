@@ -2,8 +2,10 @@
 	import { onMount } from 'svelte';
 	import { fetchSubcollectionItems } from '$lib/data/configFirestore';
 	import { fetchStudentsData } from '$lib/data/getData';
+	import { fetchSignatureUrl } from '$lib/data/configFirestore';
 
-	let subcollectionItems: any[] | undefined = [];
+	export let subcollectionItems: any[] | undefined = [];
+	let ttdUrl: any;
 	let nimFireStore = '';
 	let nidnFireStore = '';
 	let nameFireStore = '';
@@ -29,15 +31,16 @@
 		await loadContacts();
 		subcollectionItems = await fetchSubcollectionItems(nidnFireStore, nimFireStore);
 		console.log(subcollectionItems, 'ini sub col');
+		ttdUrl = await fetchSignatureUrl(nidnFireStore);
 	});
 </script>
 
-{#if subcollectionItems?.length > 0}
+{#if subcollectionItems && Array.isArray(subcollectionItems) && subcollectionItems.length > 0}
 	<!-- <div
 	id="reportKonsul"
 	class="bg-white w-full h-full rounded-3xl overflow-hidden border-2 border-gray-600"
 > -->
-	<div id="reportKonsul" class="bg-white w-full h-fit">
+	<div id="reportKonsul" class="bg-white w-full h-fit p-2 rounded-3xl">
 		<header class="flex items-center justify-center px-3">
 			<img src="/images/kop_surat.png" alt="logo unismuh" class="w-full h-full" />
 		</header>
@@ -64,7 +67,7 @@
 					<tr>
 						<td>Penasehat Akademik</td>
 						<td>:</td>
-						<td>{PA} ,{gelar}</td>
+						<td>{PA},{gelar}</td>
 					</tr>
 				</thead>
 			</table>
@@ -72,7 +75,7 @@
 				<thead>
 					<tr>
 						<th>No</th>
-						<th>Hari/Tanggal</th>
+						<th>Tanggal</th>
 						<th>Uraian</th>
 						<th>Keterangan</th>
 					</tr>
@@ -89,6 +92,37 @@
 				</tbody>
 			</table>
 		</sectxion>
+		<section class=" mt-6 flex justify-around p-3">
+			<div
+				style="background-image: url(https://ik.imagekit.io/nurman/koordinat-konsul/muhyiddin_ttd.png?updatedAt=1722470314307); background-size: cover;background-position: center;"
+				class=" flex-col items-center"
+			>
+				<p>Ketua Program Studi</p>
+				<br /><br /><br /><br />
+
+				<p class="underline font-bold">Muhyiddin A. M Hayat, S.Kom., MT.</p>
+				<p>NBM.</p>
+			</div>
+			{#if subcollectionItems.length >= 8 && ttdUrl}
+				<div
+					style={`background-image: url(${ttdUrl}); background-size: cover;background-position: center;`}
+					class="flex-col items-center"
+				>
+					<p>Penasehat Akademik</p>
+					<br /><br /><br /><br />
+
+					<p class="underline font-bold">{PA}, {gelar}</p>
+					<p>{nidnFireStore}</p>
+				</div>
+			{:else if ttdUrl == undefined}
+				<label for="files" class=" bg-green-500">Select Image</label>
+				<input type="file" />
+			{:else}
+				<div class="flex justify-center items-center">
+					<p>konsultasi belum selesai</p>
+				</div>
+			{/if}
+		</section>
 	</div>
 {:else}
 	<div class="border-2 border-gray-400 flex items-center justify-center rounded-lg w-full h-64">

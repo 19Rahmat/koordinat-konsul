@@ -1,6 +1,6 @@
 import Bimbingan from './icons/Bimbingan.svelte';
 import Konsultasi from './icons/Konsultasi.svelte';
-import Riwayat from './icons/Riwayat.svelte';
+import Selesai from './icons/Selesai.svelte';
 
 export const control = [
 	{
@@ -22,8 +22,8 @@ export const control = [
 		}
 	},
 	{
-		title: 'Riwayat',
-		icon: Riwayat,
+		title: 'Selesai',
+		icon: Selesai,
 		bg: 'bg-green-200',
 		progress: {
 			percent: 30,

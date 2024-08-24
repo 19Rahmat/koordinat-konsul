@@ -88,11 +88,12 @@
 		>
 		{#if showContactList}
 			<div
+				on:mouseleave={() => (showContactList = false)}
 				class="text-sm rounded-lg w-full overflow-x-auto mt-11 h-96 lg:w-1/3 p-2.5 z-10 absolute inset-y-0 left-0 bg-gray-700 border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500"
 			>
 				{#each contactList as contact, index}
 					<div
-						class=" hover:bg-blue-500 contact-container"
+						class=" hover:bg-blue-500 contact-container cursor-pointer"
 						on:click={() => chatbox.select(conversations[index])}
 					>
 						{contact.name}
