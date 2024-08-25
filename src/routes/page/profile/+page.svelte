@@ -49,18 +49,17 @@
 	onMount(async () => {
 		try {
 			const dataMahasiswa = await fetchStudentsData();
-			console.log(dataMahasiswa);
+			console.log('fetch student data:', dataMahasiswa.data.mahasiswa);
+			mahasiswa = dataMahasiswa.data.mahasiswa;
+			console.log('mahasiswa value', mahasiswa);
+			if (mahasiswa?.khs) {
+				nilaiAkademik = mahasiswa.khs[mahasiswa.khs.length - 1];
+			}
 
 			const dataDosen = await fetchLectureData2();
 			console.log('dosen', dataDosen.dosen);
 			console.log('data used', mahasiswa);
 			dosen = dataDosen.dosen;
-			mahasiswa = dataMahasiswa.data.mahasiswa;
-			console.log('mahasiswa', mahasiswa);
-
-			if (mahasiswa?.khs) {
-				nilaiAkademik = mahasiswa.khs[mahasiswa.khs.length - 1];
-			}
 
 			console.log('data used', mahasiswa);
 		} catch (error) {
