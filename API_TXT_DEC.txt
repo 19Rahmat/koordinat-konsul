@@ -49,3 +49,11 @@
   +-- 90434
       |
       +-- ...
+
+
+#BAR KONSULTASI 
+ - Bimbingan ==> total mahasiswa yang ada pada dosenPA/yang belum melakukan Bimbingan
+ - Konsultasi ==> total Nim yang ada pada subcollection dosenPA
+ - Selesai ==> total Nim yang ada pada subcollection dosenPA dan total Konsultasi 8
+
+

@@ -171,13 +171,13 @@
 						<sectxion class="text-black">
 							<table>
 								<thead>
-									<tr>
+									<!-- <tr>
 										<td>Nama</td>
 										<td>:</td>
 										<td />
-									</tr>
+									</tr> -->
 									<tr>
-										<td>Stambuk</td>
+										<td>Nim Mahasiswa</td>
 										<td>:</td>
 										<td>{selectedSubcollection}</td>
 									</tr>

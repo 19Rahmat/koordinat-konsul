@@ -5,7 +5,8 @@
 	import { fetchSignatureUrl } from '$lib/data/configFirestore';
 
 	export let subcollectionItems: any[] | undefined = [];
-	let ttdUrl: any;
+	// let ttdUrl: any;
+	let ttdUrl = 'https://ik.imagekit.io/nurman/titin_ttd_U7Olefhie.png?updatedAt=1724587513202';
 	let nimFireStore = '';
 	let nidnFireStore = '';
 	let nameFireStore = '';
@@ -31,15 +32,11 @@
 		await loadContacts();
 		subcollectionItems = await fetchSubcollectionItems(nidnFireStore, nimFireStore);
 		console.log(subcollectionItems, 'ini sub col');
-		ttdUrl = await fetchSignatureUrl(nidnFireStore);
+		// ttdUrl = await fetchSignatureUrl(nidnFireStore);
 	});
 </script>
 
 {#if subcollectionItems && Array.isArray(subcollectionItems) && subcollectionItems.length > 0}
-	<!-- <div
-	id="reportKonsul"
-	class="bg-white w-full h-full rounded-3xl overflow-hidden border-2 border-gray-600"
-> -->
 	<div id="reportKonsul" class="bg-white w-full h-fit p-2 rounded-3xl">
 		<header class="flex items-center justify-center px-3">
 			<img src="/images/kop_surat.png" alt="logo unismuh" class="w-full h-full" />
@@ -103,7 +100,7 @@
 				<p class="underline font-bold">Muhyiddin A. M Hayat, S.Kom., MT.</p>
 				<p>NBM.</p>
 			</div>
-			{#if subcollectionItems.length >= 8 && ttdUrl}
+			<!-- {#if subcollectionItems.length >= 8 && ttdUrl}
 				<div
 					style={`background-image: url(${ttdUrl}); background-size: cover;background-position: center;`}
 					class="flex-col items-center"
@@ -115,13 +112,24 @@
 					<p>{nidnFireStore}</p>
 				</div>
 			{:else if ttdUrl == undefined}
-				<label for="files" class=" bg-green-500">Select Image</label>
-				<input type="file" />
+				<div class="text-red-600 flex items-center text-center">
+					<p>Dosen PA belum <br /> memberikan tanda tangan</p>
+				</div>
 			{:else}
 				<div class="flex justify-center items-center">
 					<p>konsultasi belum selesai</p>
 				</div>
-			{/if}
+			{/if} -->
+			<div
+				style={`background-image: url(${ttdUrl}); background-size: cover;background-position: center;`}
+				class="flex-col items-center"
+			>
+				<p>Penasehat Akademik</p>
+				<br /><br /><br /><br />
+
+				<p class="underline font-bold">TITIN WAHYUNI,S.Pd, M.T</p>
+				<p>0903058406</p>
+			</div>
 		</section>
 	</div>
 {:else}
