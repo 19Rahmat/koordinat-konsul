@@ -8,11 +8,6 @@
 	import { fetchLectureData2 } from '$lib/data/getData';
 	import { fetchSignatureUrl } from '$lib/data/configFirestore';
 
-	let dosen: any[] = [];
-	let contactList: any[] = [];
-
-	let reportTable: any = [];
-	let reportTableVisible = false;
 	// data PA
 	let namaPA: any;
 	let gelarPA: any;
@@ -25,7 +20,10 @@
 			const data = await fetchLectureData2();
 			namaPA = data.dosen.nama;
 			gelarPA = data.dosen.gelar_belakang;
-			subcollectionNames = data.daftarmahasiswa.map((mahasiswa: any) => mahasiswa.nim);
+			subcollectionNames = data.daftarmahasiswa.map((mahasiswa: any) => ({
+				nim: mahasiswa.nim,
+				nama: mahasiswa.nama
+			}));
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}
@@ -149,8 +147,8 @@
 			class="text-sm rounded-lg block w-full lg:w-1/3 p-2.5 bg-gray-700 border-gray-600 dark:placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
 		>
 			<option value="">Pilih Mahasiswa</option>
-			{#each subcollectionNames as studentId}
-				<option value={studentId}>{studentId}</option>
+			{#each subcollectionNames as student}
+				<option value={student.nim}>{student.nama}</option>
 			{/each}
 		</select>
 	</svelte:fragment>

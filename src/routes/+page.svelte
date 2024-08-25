@@ -21,7 +21,7 @@
 						>
 					</div>
 				</li>
-				<p class="text-xs font-bold m-0">Progress</p>
+				<p class="text-xs font-bold m-0">Persentase</p>
 				<div class="w-full h-1 flex rounded-md overflow-hidden bg-white my-2 mx-0">
 					<span
 						class={`h-1 ${tabel.progress.color} `}

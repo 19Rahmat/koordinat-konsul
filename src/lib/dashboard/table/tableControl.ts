@@ -4,7 +4,7 @@ import Selesai from './icons/Selesai.svelte';
 
 export const control = [
 	{
-		title: 'Bimbingan',
+		title: 'Keseluruhan',
 		icon: Bimbingan,
 		bg: 'bg-orange-100',
 		progress: {
@@ -13,11 +13,11 @@ export const control = [
 		}
 	},
 	{
-		title: 'Konsultasi',
+		title: 'Berkonsultasi',
 		icon: Konsultasi,
 		bg: 'bg-gray-300',
 		progress: {
-			percent: 50,
+			percent: 2.34,
 			color: 'bg-indigo-700'
 		}
 	},

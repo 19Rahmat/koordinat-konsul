@@ -31,6 +31,7 @@
 				photoUrl: `https://simakad.unismuh.ac.id/upload/mahasiswa/${mahasiswa.nim}_.jpg?1714763929`,
 				role: 'mahasiswa'
 			}));
+			console.log('kontak mahasiswa', contactList);
 		} catch (error) {
 			console.error('Error fetching data:', error);
 		}

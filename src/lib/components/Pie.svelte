@@ -13,12 +13,12 @@
 
 	// Data for the pie chart
 	const data = {
-		labels: ['Permintaan', 'Berlangsung', 'Total'],
+		labels: ['Selesai', 'Berlangsung', 'Total'],
 		datasets: [
 			{
 				label: 'Konsultasi',
-				data: [16, 3, 19],
-				backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+				data: [100, 3, 128],
+				backgroundColor: ['#98FB98', '#36A2EB', '#FFCE56'],
 				borderWidth: 1
 			}
 		]

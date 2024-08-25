@@ -78,6 +78,13 @@ async function updatePhotoUrl(photoUrl: string, docId: string, newUrl: string) {
 	}
 }
 
+async function fetchNimSubcollections(mainDocId: string) {
+	const docRef = doc(db, 'koordinatKonsul', mainDocId);
+	const subcollectionSnapshot = await getDocs(collection(docRef, ''));
+
+	const subColletionNim = subcollectionSnapshot.docs.map;
+}
+
 export {
 	createDocumentWithSubcollection,
 	fetchSubcollectionItems,
