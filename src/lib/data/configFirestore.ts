@@ -1,5 +1,13 @@
 import { db } from '$lib/data/firebase';
-import { doc, setDoc, collection, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import {
+	doc,
+	setDoc,
+	collection,
+	getDoc,
+	getDocs,
+	updateDoc,
+	DocumentReference
+} from 'firebase/firestore';
 
 async function createDocumentWithSubcollection(mainDocId: string, subcollectionName: string) {
 	try {
@@ -48,6 +56,24 @@ async function fetchSubcollectionItems(mainDocId: string, subcollectionName: str
 	}
 }
 
+// async function getSubcollectionCount(mainDocId: string) {
+// 	try {
+// 		// Define the main document reference
+// 		const mainDocRef = doc(db, 'koordinatKonsul', mainDocId);
+// 		const collectionSnapshot = await getDocs(collection(mainDocRef));
+// 		const subcollections = collectionSnapshot.docs.map((doc) => doc.id);
+
+// 		// Get the count of subcollections
+// 		const subcollectionCount = subcollections.length;
+
+// 		console.log(`Subcollection count for document ${mainDocId}: ${subcollectionCount}`);
+// 		return subcollectionCount;
+// 	} catch (error) {
+// 		console.error('Error getting subcollection count: ', error);
+// 		throw error;
+// 	}
+// }
+
 async function fetchSignatureUrl(docId: string) {
 	try {
 		const docRef = doc(db, 'koordinatKonsul', docId);
@@ -79,8 +105,9 @@ async function updatePhotoUrl(photoUrl: string, docId: string, newUrl: string) {
 }
 
 async function fetchNimSubcollections(mainDocId: string) {
-	const docRef = doc(db, 'koordinatKonsul', mainDocId);
-	const subcollectionSnapshot = await getDocs(collection(docRef, ''));
+	const docRef = collection(db, 'koordinatKonsul', mainDocId);
+	const subcollectionSnapshot = await getDocs(docRef);
+	console.log(subcollectionSnapshot.docs.length);
 
 	const subColletionNim = subcollectionSnapshot.docs.map;
 }
@@ -90,4 +117,5 @@ export {
 	fetchSubcollectionItems,
 	fetchSignatureUrl,
 	updatePhotoUrl
+	// getSubcollectionCount
 };

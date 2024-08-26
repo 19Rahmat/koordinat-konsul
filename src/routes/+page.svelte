@@ -4,6 +4,12 @@
 	import { page } from '$app/stores';
 	import Table from '$lib/dashboard/table/Table.svelte';
 	import Pie from '$lib/components/Pie.svelte';
+	// import { getSubcollectionCount } from '$lib/data/configFirestore';
+	// import { onMount } from 'svelte';
+
+	// onMount(async () => {
+	// 	getSubcollectionCount('0903058406');
+	// });
 </script>
 
 <svelte:head>

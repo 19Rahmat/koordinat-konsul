@@ -169,13 +169,18 @@
 						<sectxion class="text-black">
 							<table>
 								<thead>
-									<!-- <tr>
-										<td>Nama</td>
-										<td>:</td>
-										<td />
-									</tr> -->
+									{#each subcollectionNames as student}
+										{#if student.nim === selectedSubcollection}
+											<tr>
+												<td>Nama</td>
+												<td>:</td>
+												<td>{student.nama}</td>
+											</tr>
+										{/if}
+									{/each}
+
 									<tr>
-										<td>Nim Mahasiswa</td>
+										<td>Stambuk</td>
 										<td>:</td>
 										<td>{selectedSubcollection}</td>
 									</tr>

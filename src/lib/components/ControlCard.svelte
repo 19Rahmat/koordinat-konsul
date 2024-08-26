@@ -100,7 +100,7 @@
 				<p class="underline font-bold">Muhyiddin A. M Hayat, S.Kom., MT.</p>
 				<p>NBM.</p>
 			</div>
-			<!-- {#if subcollectionItems.length >= 8 && ttdUrl}
+			{#if subcollectionItems.length >= 8 && ttdUrl}
 				<div
 					style={`background-image: url(${ttdUrl}); background-size: cover;background-position: center;`}
 					class="flex-col items-center"
@@ -119,8 +119,8 @@
 				<div class="flex justify-center items-center">
 					<p>konsultasi belum selesai</p>
 				</div>
-			{/if} -->
-			<div
+			{/if}
+			<!-- <div
 				style={`background-image: url(${ttdUrl}); background-size: cover;background-position: center;`}
 				class="flex-col items-center"
 			>
@@ -129,7 +129,7 @@
 
 				<p class="underline font-bold">TITIN WAHYUNI,S.Pd, M.T</p>
 				<p>0903058406</p>
-			</div>
+			</div> -->
 		</section>
 	</div>
 {:else}
